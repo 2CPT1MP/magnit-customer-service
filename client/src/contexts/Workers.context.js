@@ -7,17 +7,14 @@ export const WorkerProvider = ( {children} ) => {
     const {loading, error, request} = useHttp();
     const [workers, setWorkers] = useState([]);
 
-    useEffect(fetchWorkers, []);
-
-    async function fetchWorkers() {
+    useEffect(async() => {
         try {
             const data = await request('/api/workers');
             setWorkers(data);
         } catch (e) {
             throw Error("Can't fetch workers!");
         }
-    }
-
+    }, []);
 
     return (
         <WorkerContext.Provider value={workers}>

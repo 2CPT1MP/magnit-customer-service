@@ -8,16 +8,19 @@ const WorkersContainer = (props) => {
     const workersView = workers.map((worker) => {
         return <WorkerRecord firstName={worker.name.first}
                              lastName={worker.name.last}
-                             department={worker.department}
-                             job={worker.job}/>
+                             middleName={worker.name.middle}
+                             department={worker.department.name}
+                             job={worker.job.name}
+                             id={worker._id}/>
     });
 
     return (
         <table className={"table"}>
             <thead>
                 <tr>
-                    <th>Имя</th>
                     <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
                     <th>Подразделение</th>
                     <th>Должность</th>
                 </tr>

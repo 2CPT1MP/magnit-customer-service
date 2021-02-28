@@ -2,7 +2,10 @@ const workerRouter = require('express').Router();
 const workerModel = require('../models/worker.model');
 
 workerRouter.get('/', async(req, res) => {
-    const allWorkers = await workerModel.find({});
+    const allWorkers = await workerModel.find({})
+        .populate('department', 'name')
+        .populate('job', 'name');
+
     res.status(200);
     res.contentType("application/json");
     res.json(allWorkers);
