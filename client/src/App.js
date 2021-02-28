@@ -1,10 +1,16 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import WorkersContainer from "./components/WorkersContainer.component";
+import {WorkerProvider} from "./contexts/Workers.context";
 
 function App() {
+
   return (
-    <div className="App">
-      <h1>d</h1>
-    </div>
+    <WorkerProvider>
+        <div className={"container"}>
+            <WorkersContainer />
+        </div>
+    </WorkerProvider>
   );
 }
 
