@@ -1,7 +1,16 @@
-import {createContext, useState, useEffect} from 'react';
+import {createContext, useContext, useState, useEffect} from 'react';
 import {useHttp} from "../hooks/http.hook";
 
-export const WorkerContext = createContext();
+const WorkerContext = createContext();
+export const WorkerFilterContext = createContext();
+
+export const useWorkers= () => {
+    return useContext(WorkerContext);
+}
+
+export const useWorkersFilter= () => {
+    return useContext(WorkerFilterContext);
+}
 
 export const WorkerProvider = ( {children} ) => {
     const {loading, error, request} = useHttp();
@@ -16,9 +25,38 @@ export const WorkerProvider = ( {children} ) => {
         }
     }, []);
 
+    const filterWorkers = (targetField, value) => {
+        const field = workers[targetField];
+
+        switch (targetField) {
+            case undefined:
+                return workers;
+            case 'name':
+                return filterWorkersByName(value)
+            default:
+                return workers.filter((worker) => worker[targetField] === value);
+        }
+    }
+
+    const filterWorkersByName = (targetName) => {
+        return workers.filter((worker) => {
+            const name = worker.name;
+            const fullName = name.first + " " +name.last +" " +name.middle;
+            return fullName.indexOf(fullName) !== -1;
+        });
+    }
+
+
+
     return (
         <WorkerContext.Provider value={workers}>
-            {children}
+        <WorkerFilterContext.Provider value={filterWorkers}>
+            <div hidden={!loading}>
+            </div>
+            <div hidden={loading}>
+                {children}
+            </div>
+        </WorkerFilterContext.Provider>
         </WorkerContext.Provider>
     );
 }

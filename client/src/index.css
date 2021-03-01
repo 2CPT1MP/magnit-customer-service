@@ -11,3 +11,7 @@
 body {
   font-family: "Segoe UI", sans-serif!important;
 }
+
+.form-inline .form-group {
+  margin-right:4px;
+}

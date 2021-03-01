@@ -1,17 +1,18 @@
 import React from 'react';
-import {useState, useContext} from "react";
-import WorkerRecord from "./WorkerRecord.component";
-import {WorkerContext} from "../contexts/Workers.context";
+import WorkerRecord from "./worker.component";
+import {useWorkers} from "../contexts/workers.context";
 
 const WorkersContainer = (props) => {
-    const workers = useContext(WorkerContext);
+    const workers = useWorkers();
     const workersView = workers.map((worker) => {
         return <WorkerRecord firstName={worker.name.first}
                              lastName={worker.name.last}
                              middleName={worker.name.middle}
                              department={worker.department.name}
                              job={worker.job.name}
-                             id={worker._id}/>
+                             id={worker._id}
+                             key={worker._id}
+        />
     });
 
     return (
