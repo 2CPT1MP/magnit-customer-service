@@ -1,14 +1,14 @@
-const jobRouter = require('express').Router();
+const jobRoute = require('express').Router();
 const jobModel = require('../models/job.model');
 
-jobRouter.get('/', async(req, res) => {
+jobRoute.get('/', async(req, res) => {
     const allJobs = await jobModel.find({});
     res.status(200);
     res.contentType("application/json");
     res.json(allJobs);
 });
 
-jobRouter.get('/:id', async(req, res) => {
+jobRoute.get('/:id', async(req, res) => {
     const targetId = req.params.id;
     res.contentType("application/json");
 
@@ -33,5 +33,5 @@ jobRouter.get('/:id', async(req, res) => {
     }
 });
 
-module.exports = jobRouter;
+module.exports = jobRoute;
 

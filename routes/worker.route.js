@@ -1,7 +1,7 @@
-const workerRouter = require('express').Router();
+const workerRoute = require('express').Router();
 const workerModel = require('../models/worker.model');
 
-workerRouter.get('/', async(req, res) => {
+workerRoute.get('/', async(req, res) => {
     const allWorkers = await workerModel.find({})
         .populate('department', 'name')
         .populate('job', 'name');
@@ -11,7 +11,7 @@ workerRouter.get('/', async(req, res) => {
     res.json(allWorkers);
 });
 
-workerRouter.get('/:id', async(req, res) => {
+workerRoute.get('/:id', async(req, res) => {
     const targetId = req.params.id;
     res.contentType("application/json");
 
@@ -36,5 +36,5 @@ workerRouter.get('/:id', async(req, res) => {
     }
 });
 
-module.exports = workerRouter;
+module.exports = workerRoute;
 

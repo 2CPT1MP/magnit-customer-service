@@ -24,6 +24,7 @@ const WorkersContainer = (props) => {
                     <th>Отчество</th>
                     <th>Подразделение</th>
                     <th>Должность</th>
+
                 </tr>
             </thead>
             <tbody>

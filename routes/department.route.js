@@ -1,14 +1,14 @@
-const departmentRouter = require('express').Router();
+const departmentRoute = require('express').Router();
 const departmentModel = require('../models/department.model');
 
-departmentRouter.get('/', async(req, res) => {
+departmentRoute.get('/', async(req, res) => {
     const allDepartments = await departmentModel.find({});
     res.status(200);
     res.contentType("application/json");
     res.json(allDepartments);
 });
 
-departmentRouter.get('/:id', async(req, res) => {
+departmentRoute.get('/:id', async(req, res) => {
     const targetId = req.params.id;
     res.contentType("application/json");
 
@@ -33,5 +33,5 @@ departmentRouter.get('/:id', async(req, res) => {
     }
 });
 
-module.exports = departmentRouter;
+module.exports = departmentRoute;
 

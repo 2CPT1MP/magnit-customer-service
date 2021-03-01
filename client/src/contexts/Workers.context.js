@@ -26,8 +26,6 @@ export const WorkerProvider = ( {children} ) => {
     }, []);
 
     const filterWorkers = (targetField, value) => {
-        const field = workers[targetField];
-
         switch (targetField) {
             case undefined:
                 return workers;
@@ -42,11 +40,9 @@ export const WorkerProvider = ( {children} ) => {
         return workers.filter((worker) => {
             const name = worker.name;
             const fullName = name.first + " " +name.last +" " +name.middle;
-            return fullName.indexOf(fullName) !== -1;
+            return (fullName.indexOf(targetName) !== -1);
         });
     }
-
-
 
     return (
         <WorkerContext.Provider value={workers}>

@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const express = require("express");
 const server = express();
 
-const workerRouter = require('./routes/worker.router')
-const departmentRouter = require('./routes/department.router');
-const jobRouter = require('./routes/job.router');
+const workerRouter = require('./routes/worker.route')
+const departmentRouter = require('./routes/department.route');
+const jobRouter = require('./routes/job.route');
 
 const connectToDatabase = async() => {
     try {
