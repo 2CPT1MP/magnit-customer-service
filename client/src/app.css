@@ -15,3 +15,7 @@ body {
 .form-inline .form-group {
   margin-right:4px;
 }
+
+.table-active {
+  cursor: pointer;
+}
