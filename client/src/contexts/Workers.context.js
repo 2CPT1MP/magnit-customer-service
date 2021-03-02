@@ -48,7 +48,6 @@ export const WorkerProvider = ( {children} ) => {
                     } else {
                         const workerField = `${worker[field]['name']}`;
                         const filterField = `${filter[field]}`;
-                        console.log(workerField === filterField);
                         if (workerField === filterField)
                             eq++;
                     }
