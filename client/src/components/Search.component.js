@@ -1,45 +1,43 @@
 import React from 'react';
-import {useState} from 'react';
-import {useWorkers, useWorkersFilter} from "../contexts/workers.context";
+import { useState, useEffect } from 'react';
+import { useWorkersFilter } from "../contexts/workers.context";
 
 
 const SearchComponent = () => {
-    const workers = useWorkers();
     const workersFilter = useWorkersFilter();
+    const [filter, setFilter] = useState({});
 
-    const [department, setDepartment] = useState("");
-    const [job, setJob] = useState("");
-    const [name, setName] = useState("");
+    useEffect(() => {
+       workersFilter(filter);
+    }, [filter]);
 
-    const onDepartmentChange = (event) => {
+    const onChange = (event) => {
         const value = event.target.value;
-        setDepartment(value);
-        workersFilter('department', value);
-    }
+        const name = event.target.name;
 
-    const onJobChange = (event) => {
-        const value = event.target.value;
-        setJob(value);
-        workersFilter('job', value);
-    }
-
-    const onNameChange = (event) => {
-        const value = event.target.value;
-        setName(value);
-        workersFilter('name', value);
+        if (value === 'any') {
+            const otherFields = Object.entries(filter).filter((field) => field[0] !== name);
+            setFilter(Object.fromEntries(otherFields));
+        }
+        else
+            setFilter({...filter, [event.target.name]: event.target.value});
     }
 
     return (
         <form className={"form-inline mb-1 mt-4"}>
             <div className={"input-group"}>
                 <div className={"form-group col-sm-3"}>
-                    <select className={"form-control"} onChange={onDepartmentChange}>
-                        <option>Работа с песоналом</option>
+                    <select className={"form-control"} onChange={onChange} name={"department"}>
+                        <option value={"any"}>Все отделы</option>
+                        <option>Отдел продаж</option>
+                        <option>Отдел по работе с персоналом</option>
                     </select>
                 </div>
                 <div className={"form-group col-sm-3"}>
-                    <select className={"form-control"} onChange={onJobChange}>
-                        <option>Консультант</option>
+                    <select className={"form-control"} onChange={onChange} name={"job"}>
+                        <option value={"any"}>Все должности</option>
+                        <option>Начальник отдела продаж</option>
+                        <option>Старший менеджер</option>
                     </select>
                 </div>
                 <div className={"form-group col-sm"}>
@@ -47,7 +45,7 @@ const SearchComponent = () => {
                        name="name"
                        id="name"
                        className={"form-control"}
-                       onChange={onNameChange} placeholder={"Поиск по ФИО"}
+                       onChange={onChange} placeholder={"Поиск по ФИО"}
                 />
                 </div>
                 <button type={"submit"} className={"btn btn-primary"}><i className={"bi-search"}/> </button>

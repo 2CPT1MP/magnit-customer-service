@@ -1,9 +1,9 @@
 import React from 'react';
 import WorkerRecord from "./worker.component";
-import {useWorkers} from "../contexts/workers.context";
+import {useFilteredWorkers} from "../contexts/workers.context";
 
 const WorkersContainer = (props) => {
-    const workers = useWorkers();
+    const workers = useFilteredWorkers();
     const workersView = workers.map((worker) => {
         return <WorkerRecord firstName={worker.name.first}
                              lastName={worker.name.last}
