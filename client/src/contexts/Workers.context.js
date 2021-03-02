@@ -1,9 +1,9 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useHttp } from "../hooks/http.hook";
 
-const WorkerContext = createContext();
-const FilteredWorkersContext = createContext();
-export const WorkerFilterContext = createContext();
+const WorkerContext = createContext([]);
+const FilteredWorkersContext = createContext([]);
+export const WorkerFilterContext = createContext(null);
 
 
 export const useWorkers= () => {
@@ -34,7 +34,7 @@ export const WorkerProvider = ( {children} ) => {
             }
         }
         fetchData();
-    }, [request]);
+    }, []);
 
     const filterWorkers = (filter) => {
         setFilteredWorkers(workers.filter((worker) => {
@@ -42,13 +42,18 @@ export const WorkerProvider = ( {children} ) => {
             for (let field in filter) {
                 if (filter.hasOwnProperty(field) && worker.hasOwnProperty(field)) {
                     if (field === 'name') {
-                        const fullName = `${worker.name.first} ${worker.name.last} ${worker.name.middle}`;
-                        eq = eq + (fullName.indexOf(filter[field]) !== -1)? 1 : 0;
-                    } else
-                        eq = eq + (worker[field] === filter[field])? 1 : 0;
+                        const fullName = `${worker.name.last} ${worker.name.first} ${worker.name.middle}`;
+                        if (fullName.indexOf(filter[field]) !== -1)
+                            eq++;
+                    } else {
+                        const workerField = `${worker[field]['name']}`;
+                        const filterField = `${filter[field]}`;
+                        console.log(workerField === filterField);
+                        if (workerField === filterField)
+                            eq++;
+                    }
                 }
             }
-            console.log(eq);
             return eq === Object.keys(filter).length;
         }));
     }

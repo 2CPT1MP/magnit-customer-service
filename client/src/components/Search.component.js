@@ -9,7 +9,7 @@ const SearchComponent = () => {
 
     useEffect(() => {
        workersFilter(filter);
-    }, [filter, workersFilter]);
+    }, [filter]);
 
     const onChange = (event) => {
         const value = event.target.value;

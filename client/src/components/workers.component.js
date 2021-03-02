@@ -1,18 +1,20 @@
 import React from 'react';
 import WorkerRecord from "./worker.component";
-import {useFilteredWorkers} from "../contexts/workers.context";
+import { useFilteredWorkers } from "../contexts/workers.context";
 
-const WorkersContainer = (props) => {
+const WorkersContainer = () => {
     const workers = useFilteredWorkers();
     const workersView = workers.map((worker) => {
-        return <WorkerRecord firstName={worker.name.first}
-                             lastName={worker.name.last}
-                             middleName={worker.name.middle}
-                             department={worker.department.name}
-                             job={worker.job.name}
-                             id={worker._id}
-                             key={worker._id}
-        />
+        return (
+            <WorkerRecord firstName={worker.name.first}
+                          lastName={worker.name.last}
+                          middleName={worker.name.middle}
+                          department={worker.department.name}
+                          job={worker.job.name}
+                          id={worker._id}
+                          key={worker._id}
+            />
+        );
     });
 
     return (
@@ -24,7 +26,6 @@ const WorkersContainer = (props) => {
                     <th>Отчество</th>
                     <th>Подразделение</th>
                     <th>Должность</th>
-
                 </tr>
             </thead>
             <tbody>
