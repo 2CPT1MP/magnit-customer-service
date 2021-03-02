@@ -19,19 +19,22 @@ export const useWorkersFilter = () => {
 }
 
 export const WorkerProvider = ( {children} ) => {
-    const {loading, error, request} = useHttp();
+    const {loading, request} = useHttp();
     const [workers, setWorkers] = useState([]);
     const [filteredWorkers, setFilteredWorkers] = useState([]);
 
-    useEffect(async() => {
-        try {
-            const data = await request('/api/workers');
-            setWorkers(data);
-            setFilteredWorkers(data);
-        } catch (e) {
-            throw Error("Can't fetch workers!");
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const data = await request('/api/workers');
+                setWorkers(data);
+                setFilteredWorkers(data);
+            } catch (e) {
+                throw Error("Can't fetch workers!");
+            }
         }
-    }, []);
+        fetchData();
+    }, [request]);
 
     const filterWorkers = (filter) => {
         setFilteredWorkers(workers.filter((worker) => {
