@@ -2,13 +2,21 @@ const workerRoute = require('express').Router();
 const workerModel = require('../models/worker.model');
 
 workerRoute.get('/', async(req, res) => {
-    const allWorkers = await workerModel.find({})
+    const allWorkers = await workerModel.find({}, {schedule: false, phone: false, address: false})
         .populate('department', 'name')
         .populate('job', 'name');
 
     res.status(200);
     res.contentType("application/json");
     res.json(allWorkers);
+});
+
+
+workerRoute.put('/:id/schedule', async(req, res) => {
+    await workerModel.updateOne({_id: req.params.id}, {$set:{schedule: req.body}});
+    res.json({
+        message: "okay"
+    });
 });
 
 workerRoute.get('/:id', async(req, res) => {

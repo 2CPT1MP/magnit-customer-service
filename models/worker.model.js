@@ -36,15 +36,27 @@ const workerSchema = new Schema({
         required: true
     },
 
-    schedule: [
-        {
-            hours: {
-                type: Number,
-                required: true,
-                unique: false
+    schedule: {
+        month: {
+            type: Number,
+            required: true,
+            unique: false
+        },
+        year: {
+            type: Number,
+            required: true,
+            unique: false
+        },
+        days: [
+            {
+                hours: {
+                    type: Number,
+                    required: true,
+                    unique: false
+                }
             }
-        }
-    ]
+        ]
+    }
 });
 
 module.exports = model("Worker", workerSchema);
