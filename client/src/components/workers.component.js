@@ -26,8 +26,8 @@ const WorkersContainer = () => {
 
     return (
         <>
-            <div className={"alert alert-danger mt-3"} hidden={!listEmpty}>
-                <strong>Сотрудники</strong> с заданными фильтрами <strong>не найдены</strong>
+            <div className={"alert alert-info mt-3"} hidden={!listEmpty}>
+                <i className="bi bi-exclamation-triangle-fill"/> <strong>Сотрудники</strong> с заданными фильтрами <strong>не найдены</strong>
             </div>
             <table className={"table mt-2"} hidden={listEmpty}>
                 <thead>

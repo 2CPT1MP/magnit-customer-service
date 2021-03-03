@@ -30,10 +30,10 @@ const SearchComponent = () => {
     const jobsView = jobs.map((job) => <option key={job._id}>{job.name}</option>);
 
     return (
-        <form className={"form-inline mb-1 mt-4"} onSubmit={event => event.preventDefault()}>
+        <form className={"form-inline mb-1 mt-4"} onSubmit={event => event.preventDefault()} autoComplete={"off"}>
             <div className={"input-group"}>
                 <div className={"form-group col-sm-3"}>
-                    <select className={"form-control"} onChange={onChange} name={"department"}>
+                    <select className={"form-control "} onChange={onChange} name={"department"}>
                         <option value={"any"}>Все отделы</option>
                         {departmentsView}
                     </select>

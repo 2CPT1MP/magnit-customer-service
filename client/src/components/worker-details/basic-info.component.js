@@ -48,7 +48,7 @@ const WorkerBasicInfo = () => {
     return (
         <form onSubmit={event => event.preventDefault()} autoComplete={"off"}>
             <div className={"mt-5"}>
-                <h2>Базовая информация</h2>
+                <h2><i className="bi bi-info-circle"/> Базовая информация</h2>
                 <div className={"form-group mt-2"}>
                     <label htmlFor="lastName">Фамилия</label>
                     <input className="form-control mt-1"
@@ -78,9 +78,9 @@ const WorkerBasicInfo = () => {
                 </div>
             </div>
             <div className={"mt-5"}>
-                <h2>Контактная информация</h2>
+                <h2><i className="bi bi-person-lines-fill"/> Контактная информация</h2>
                     <div className={"form-group mt-2"}>
-                        <label htmlFor="address">Адрес</label>
+                        <label htmlFor="address"><i className="bi bi-house-door"/> Адрес</label>
                         <input className="form-control mt-1"
                                type="address"
                                name="address"
@@ -89,7 +89,7 @@ const WorkerBasicInfo = () => {
                         />
                     </div>
                     <div className={"form-group mt-2"}>
-                        <label htmlFor="phone">Телефон</label>
+                        <label htmlFor="phone"><i className="bi bi-telephone"/> Телефон</label>
                         <input className="form-control mt-1"
                                type="phone"
                                name="phone"
@@ -99,7 +99,7 @@ const WorkerBasicInfo = () => {
                     </div>
             </div>
             <div className={"mt-5"}>
-                <h2>Работа</h2>
+                <h2><i className="bi bi-building"/> Работа</h2>
                 <div className={"form-group mt-2"}>
                     <label htmlFor="department">Отдел</label>
                     <select className={"form-control mt-1"}

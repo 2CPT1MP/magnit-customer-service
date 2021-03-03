@@ -1,13 +1,11 @@
 @font-face {
   font-family: 'Segoe UI';
   src: url("./fonts/SegoeUI.ttf");
-  font-weight: normal;
 }
 
 @font-face {
-  font-family: 'Segoe UI';
+  font-family: 'Segoe UI Semibold';
   src: url("./fonts/SegoeUISemibold.ttf");
-  font-weight: bold;
 }
 
 body {
@@ -20,4 +18,8 @@ body {
 
 .table-active {
   cursor: pointer;
+}
+
+h1 {
+  font-family: "Segoe UI Semibold", sans-serif;
 }
