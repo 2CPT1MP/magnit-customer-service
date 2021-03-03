@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import {useHttp} from "../../hooks/http.hook";
 import {useLocation} from "react-router";
+import {useDepartments} from "../../contexts/departments.context";
+import {useJobs} from "../../contexts/jobs.context";
 
 const WorkerBasicInfo = () => {
     const [lastName, setLastName] = useState("");
@@ -16,6 +18,8 @@ const WorkerBasicInfo = () => {
 
     const {request} = useHttp();
     const workerId = useLocation().pathname;
+    const departments = useDepartments();
+    const jobs = useJobs();
 
     useEffect(() => {
         const fetchData = async() => {
@@ -38,7 +42,8 @@ const WorkerBasicInfo = () => {
     }, []);
 
 
-
+    const departmentsView = departments.map((department) => <option value={department._id}>{department.name}</option>);
+    const jobsView = jobs.map((job) => <option value={job._id}>{job.name}</option>);
 
     return (
         <form onSubmit={event => event.preventDefault()} autoComplete={"off"}>
@@ -101,7 +106,7 @@ const WorkerBasicInfo = () => {
                             name={"department"}
                             id={"department"}
                             value={department}>
-                        <option>Департамент 1</option>
+                        {departmentsView}
                     </select>
                 </div>
                 <div className={"form-group mt-2"}>
@@ -110,7 +115,7 @@ const WorkerBasicInfo = () => {
                             name={"job"}
                             id={"job"}
                             value={job}>
-                        <option>Должность 1</option>
+                        {jobsView}
                     </select>
                 </div>
             </div>

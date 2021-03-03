@@ -52,7 +52,7 @@ const SearchComponent = () => {
                        onChange={onChange} placeholder={"Поиск по ФИО"}
                 />
                 </div>
-                <button type={"submit"} className={"btn btn-primary"}><i className={"bi-search"}/> </button>
+                <button type={"submit"} className={"btn btn-danger"}><i className={"bi-search"}/> </button>
             </div>
         </form>
     );
