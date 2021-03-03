@@ -13,7 +13,7 @@ const WorkerRecord = (props) => {
     }
 
     const onClick = (event) => {
-        window.location.href = `/api/workers/${props.id}`;
+        window.location.href = `/workers/${props.id}`;
     }
 
 
