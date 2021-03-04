@@ -54,18 +54,18 @@ const WorkerSchedule = ({workerId, schedule}) => {
 
     const onScheduleRemove = async() => {
         setSche({});
-        //await request(`/api/workers/${workerId}/schedule`, 'DELETE')
     }
 
-
     return (
-        <div className={"mt-5"}>
+        <div className={"mt-5 mb-5"}>
             <h2><i className="bi bi-clock"/> Отработанные часы</h2>
             <div hidden={hasSchedule}>
                 <div className={"alert alert-info mt-3"}>
-                    <i className="bi bi-exclamation-triangle-fill" /> По данному работнику <strong>нет информации</strong> об отработанных часах и переработках
+                    <i className="bi bi-exclamation-triangle-fill" /> По данному работнику <strong>отсутствует информация </strong>
+                    об отработанных часах и переработках. Вы можете <strong>добавить</strong> ее нажав на соответствующую кнопку под данным
+                    уведомлением.
                 </div>
-                <button className={"btn btn-primary"} onClick={onScheduleAdd}>Добавить</button>
+                <button className={"btn btn-primary"} onClick={onScheduleAdd}><i className="bi bi-plus-circle"/> Добавить</button>
             </div>
             <div hidden={!hasSchedule} >
                 <div>на {sche.month+1 }/{sche.year}</div>
@@ -89,8 +89,8 @@ const WorkerSchedule = ({workerId, schedule}) => {
                     <div className={"col-lg"}>
                     </div>
                 </div>
-                <button className={"btn btn-danger"} onClick={onScheduleRemove}>Удалить</button>
-                <button className={"btn btn-success"}>Оплатить</button>
+                <button className={"btn btn-danger me-1"} onClick={onScheduleRemove}><i className="bi bi-file-earmark-x"/> Удалить</button>
+                <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить</button>
             </div>
         </div>
     );
