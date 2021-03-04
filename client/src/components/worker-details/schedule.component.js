@@ -22,6 +22,7 @@ const WorkerSchedule = ({workerId, schedule}) => {
                     row = [];
                 }
             }
+
         }
         return table;
     }, [sche]);
@@ -59,6 +60,8 @@ const WorkerSchedule = ({workerId, schedule}) => {
     return (
         <div className={"mt-5 mb-5"}>
             <h2><i className="bi bi-clock"/> Отработанные часы</h2>
+            <p>Информация о количестве отработанных часах и переработках сотрудника
+                в течении текущего месяца <strong>{hasSchedule?  '('+(sche.month+1) + '.' + sche.year+')' : ''}</strong></p>
             <div hidden={hasSchedule}>
                 <div className={"alert alert-info mt-3"}>
                     <i className="bi bi-exclamation-triangle-fill" /> По данному работнику <strong>отсутствует информация </strong>
@@ -68,9 +71,8 @@ const WorkerSchedule = ({workerId, schedule}) => {
                 <button className={"btn btn-primary"} onClick={onScheduleAdd}><i className="bi bi-plus-circle"/> Добавить</button>
             </div>
             <div hidden={!hasSchedule} >
-                <div>на {sche.month+1 }/{sche.year}</div>
                 <div className={"row mt-2"}>
-                    <table className={"table col-sm"} >
+                    <table className={"table table-bordered text-center col-sm"} >
                         <thead>
                             <tr>
                                 <th>Пн</th>
