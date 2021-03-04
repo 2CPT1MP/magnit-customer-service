@@ -10,17 +10,16 @@ const WorkerSchedule = ({workerId, schedule}) => {
     const scheduleView = useMemo(() => {
         const table = [];
         if (hasSchedule) {
-            const date = new Date(sche.year, sche.month, 0);
+            const date = new Date(sche.year, sche.month, 1);
+            let row = [];
+            for (let i = 1; i !== date.getDay(); i++)
+                row.push(<td/>);
 
-            for (let d = 0; d < sche.days.length;) {
-                let row = [];
-                while (d < sche.days.length) {
-                    row.push(<td>{sche.days[d].day}</td>);
-                    if (date.getDay() === 6 || d === sche.days.length - 1) {
-                        table.push(<tr>{row}</tr>);
-                        row = [];
-                    }
-                    date.setDate(++d);
+            for (let d = 0; d < sche.days.length; date.setDate(++d+1)) {
+                row.push(<td>{sche.days[d].day}</td>);
+                if (date.getDay() === 0 || d === sche.days.length - 1) {
+                    table.push(<tr>{row}</tr>);
+                    row = [];
                 }
             }
         }
@@ -70,16 +69,18 @@ const WorkerSchedule = ({workerId, schedule}) => {
             </div>
             <div hidden={!hasSchedule} >
                 <div>на {sche.month+1 }/{sche.year}</div>
-                <div className={"row"}>
+                <div className={"row mt-2"}>
                     <table className={"table col-sm"} >
                         <thead>
-                            <th>Пн</th>
-                            <th>Вт</th>
-                            <th>Ср</th>
-                            <th>Чт</th>
-                            <th>Пт</th>
-                            <th>Сб</th>
-                            <th>Вс</th>
+                            <tr>
+                                <th>Пн</th>
+                                <th>Вт</th>
+                                <th>Ср</th>
+                                <th>Чт</th>
+                                <th>Пт</th>
+                                <th>Сб</th>
+                                <th>Вс</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {scheduleView}
