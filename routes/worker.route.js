@@ -19,6 +19,13 @@ workerRoute.put('/:id/schedule', async(req, res) => {
     });
 });
 
+workerRoute.delete('/:id/schedule', async(req, res) => {
+    await workerModel.updateOne({_id: req.params.id}, {$unset:{schedule: {}}});
+    res.json({
+        message: "okay"
+    });
+});
+
 workerRoute.get('/:id', async(req, res) => {
     const targetId = req.params.id;
     res.contentType("application/json");

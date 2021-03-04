@@ -1,46 +1,22 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import {useHttp} from "../../hooks/http.hook";
-import {useLocation} from "react-router";
 import {useDepartments} from "../../contexts/departments.context";
 import {useJobs} from "../../contexts/jobs.context";
 
-const WorkerBasicInfo = () => {
-    const [lastName, setLastName] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [middleName, setMiddleName] = useState("");
+const WorkerBasicInfo = ({basicInfo, workerId}) => {
+    console.log(basicInfo);
+    const [lastName, setLastName] = useState(basicInfo.name.last);
+    const [firstName, setFirstName] = useState(basicInfo.name.first);
+    const [middleName, setMiddleName] = useState(basicInfo.name.middle);
 
-    const [address, setAddress] = useState("");
-    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState(basicInfo.address);
+    const [phone, setPhone] = useState(basicInfo.phone);
 
-    const [department, setDepartment] = useState("");
-    const [job, setJob] = useState("");
+    const [department, setDepartment] = useState(basicInfo.department);
+    const [job, setJob] = useState(basicInfo.job);
 
-    const {request} = useHttp();
-    const workerId = useLocation().pathname;
     const departments = useDepartments();
     const jobs = useJobs();
-
-    useEffect(() => {
-        const fetchData = async() => {
-            try {
-                const data = await request(`/api${workerId}`);
-                setFirstName(data.name.first);
-                setLastName(data.name.last);
-                setMiddleName(data.name.middle);
-
-                setAddress(data.address);
-                setPhone(data.phone);
-
-                setDepartment(data.department);
-                setJob(data.job);
-            } catch (e) {
-                throw Error("Can't fetch worker basic info!");
-            }
-        }
-        fetchData();
-    }, []);
-
 
     const departmentsView = departments.map((department) => <option value={department._id}>{department.name}</option>);
     const jobsView = jobs.map((job) => <option value={job._id}>{job.name}</option>);

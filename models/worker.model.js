@@ -49,6 +49,11 @@ const workerSchema = new Schema({
         },
         days: [
             {
+                day: {
+                    type: Number,
+                    required: true,
+                    unique: false
+                },
                 hours: {
                     type: Number,
                     required: true,
