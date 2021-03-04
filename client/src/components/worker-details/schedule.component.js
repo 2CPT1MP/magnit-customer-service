@@ -1,17 +1,37 @@
 import React from 'react';
 import {useHttp} from "../../hooks/http.hook";
-import {useState} from "react";
+import {useState, useEffect, useMemo, useCallback} from "react";
+
 
 const WorkerSchedule = ({workerId, schedule}) => {
-    let hasSchedule = (schedule !== undefined) && (schedule.days !== undefined) && (schedule.days.length > 0);
+    const [sche, setSche] = useState(schedule);
+    const { request, error } = useHttp();
+    const hasSchedule = useMemo(() => (sche !== undefined) && (sche.days !== undefined) && (sche.days.length > 0), [sche]);
+    const scheduleView = useMemo(() => {
+        const table = [];
+        if (hasSchedule) {
+            const date = new Date(sche.year, sche.month, 0);
 
-    const { request } = useHttp();
+            for (let d = 0; d < sche.days.length;) {
+                let row = [];
+                while (d < sche.days.length) {
+                    row.push(<td>{sche.days[d].day}</td>);
+                    if (date.getDay() === 6 || d === sche.days.length - 1) {
+                        table.push(<tr>{row}</tr>);
+                        row = [];
+                    }
+                    date.setDate(++d);
+                }
+            }
+        }
+        return table;
+    }, [sche]);
+
 
     const onScheduleAdd = async() => {
         let iterationDate = new Date();
         const currentDate = new Date();
         iterationDate.setDate(1);
-
 
         let sch = [];
         for (let i = 1; iterationDate.getMonth() === currentDate.getMonth(); iterationDate.setDate(++i)) {
@@ -22,37 +42,22 @@ const WorkerSchedule = ({workerId, schedule}) => {
             });
         }
 
-        const schObj = {
+        setSche({
             month: currentDate.getMonth(),
             year: currentDate.getFullYear(),
             days: sch
-        }
-        await request(`/api/workers/${workerId}/schedule`, 'PUT', schObj)
+        });
     }
+
+    useEffect(async() => {
+        await request(`/api/workers/${workerId}/schedule`, 'PUT', sche);
+    }, [sche]);
 
     const onScheduleRemove = async() => {
-        await request(`/api/workers/${workerId}/schedule`, 'DELETE')
+        setSche({});
+        //await request(`/api/workers/${workerId}/schedule`, 'DELETE')
     }
 
-    const table = [];
-
-    if (hasSchedule) {
-        const date = new Date(schedule.year, schedule.month, 0);
-
-        for (let d = 0; d < schedule.days.length;) {
-            let row = [];
-            while (d < schedule.days.length) {
-                row.push(<td>{schedule.days[d].day}</td>);
-                if (date.getDay() === 6 || d === schedule.days.length - 1) {
-                    table.push(<tr>{row}</tr>);
-                    row = [];
-                }
-                date.setDate(++d);
-            }
-        }
-    }
-
-    console.log(table);
 
     return (
         <div className={"mt-5"}>
@@ -64,7 +69,7 @@ const WorkerSchedule = ({workerId, schedule}) => {
                 <button className={"btn btn-primary"} onClick={onScheduleAdd}>Добавить</button>
             </div>
             <div hidden={!hasSchedule} >
-                <div>на {schedule.month+1 }/{schedule.year}</div>
+                <div>на {sche.month+1 }/{sche.year}</div>
                 <div className={"row"}>
                     <table className={"table col-sm"} >
                         <thead>
@@ -77,7 +82,7 @@ const WorkerSchedule = ({workerId, schedule}) => {
                             <th>Вс</th>
                         </thead>
                         <tbody>
-                            {table}
+                            {scheduleView}
                         </tbody>
                     </table>
                     <div className={"col-lg"}>
