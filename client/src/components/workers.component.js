@@ -3,13 +3,20 @@ import WorkerRecord from "./worker-record.component";
 import { useFilteredWorkers } from "../contexts/workers.context";
 
 const WorkersContainer = () => {
-    const workers = useFilteredWorkers();
+    const [workers, workersLoading] = useFilteredWorkers();
     const [listEmpty, setListEmpty] = useState(false);
 
     useEffect(() => {
         setListEmpty(workers.length === 0);
         console.log(workers.length === 0)
-    }, [workers])
+    }, [workers]);
+
+    if (workersLoading)
+        return (
+            <div className={"alert alert-info mt-4 loading"}>
+                <i className="bi bi-arrow-repeat" /> Загрузка рабочих...
+            </div>
+        );
 
     const workersView = workers.map((worker) => {
         return (
@@ -26,10 +33,13 @@ const WorkersContainer = () => {
 
     return (
         <>
+            <div className={"alert alert-info mt-4 finished"}>
+                <i className="bi bi-arrow-repeat" /> Загрузка рабочих...
+            </div>
             <div className={"alert alert-info mt-3"} hidden={!listEmpty}>
                 <i className="bi bi-exclamation-triangle-fill"/> <strong>Сотрудники</strong> с заданными фильтрами <strong>не найдены</strong>
             </div>
-            <table className={"table mt-2"} hidden={listEmpty}>
+            <table className={"table mt-2 loading-subject"} hidden={listEmpty}>
                 <thead>
                     <tr>
                         <th>Фамилия</th>

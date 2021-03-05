@@ -8,7 +8,7 @@ export const useJobs = () => {
 }
 
 export const JobProvider = ( {children} ) => {
-    const {request} = useHttp();
+    const {request, loading} = useHttp();
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export const JobProvider = ( {children} ) => {
     }, []);
 
     return (
-        <JobContext.Provider value={jobs}>
+        <JobContext.Provider value={[jobs, loading]}>
             {children}
         </JobContext.Provider>
     );

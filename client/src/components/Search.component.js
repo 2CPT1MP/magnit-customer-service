@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useWorkersFilter } from "../contexts/workers.context";
+import {useFilteredWorkers, useWorkersFilter} from "../contexts/workers.context";
 import { useDepartments } from "../contexts/departments.context";
 import { useJobs } from "../contexts/jobs.context";
 
 const SearchComponent = () => {
     const workersFilter = useWorkersFilter();
+    const [workers, workersLoading] = useFilteredWorkers();
     const [filter, setFilter] = useState({});
-    const departments = useDepartments();
-    const jobs = useJobs();
+    const [departments, departmentsLoading] = useDepartments();
+    const [jobs, jobsLoading] = useJobs();
 
     useEffect(() => {
        workersFilter(filter);
@@ -33,15 +34,21 @@ const SearchComponent = () => {
         <form className={"form-inline mb-1 mt-4"} onSubmit={event => event.preventDefault()} autoComplete={"off"}>
             <div className={"input-group"}>
                 <div className={"form-group col-sm-3"}>
-                    <select className={"form-control "} onChange={onChange} name={"department"}>
+                    <select className={"form-control "} onChange={onChange} name={"department"} hidden={departmentsLoading}>
                         <option value={"any"}>Все отделы</option>
                         {departmentsView}
                     </select>
+                    <select className={"form-control "} hidden={!departmentsLoading} disabled>
+                        <option>Загрузка отделов...</option>
+                    </select>
                 </div>
                 <div className={"form-group col-sm-3"}>
-                    <select className={"form-control"} onChange={onChange} name={"job"}>
+                    <select className={"form-control"} onChange={onChange} name={"job"} hidden={jobsLoading}>
                         <option value={"any"}>Все должности</option>
                         {jobsView}
+                    </select>
+                    <select className={"form-control"} hidden={!jobsLoading} disabled>
+                        <option>Загрузка должностей...</option>
                     </select>
                 </div>
                 <div className={"form-group col-sm"}>
@@ -49,7 +56,9 @@ const SearchComponent = () => {
                        name="name"
                        id="name"
                        className={"form-control"}
-                       onChange={onChange} placeholder={"Поиск по ФИО"}
+                       onChange={onChange}
+                       placeholder={"Поиск по ФИО"}
+                       disabled={workersLoading}
                 />
                 </div>
                 <button type={"submit"} className={"btn btn-danger"}><i className={"bi-search"}/> </button>

@@ -60,13 +60,8 @@ export const WorkerProvider = ( {children} ) => {
     return (
         <WorkerContext.Provider value={workers}>
             <WorkerFilterContext.Provider value={filterWorkers}>
-                <FilteredWorkersContext.Provider value={filteredWorkers}>
-                    <div hidden={!loading}>
-                        {}
-                    </div>
-                    <div hidden={loading}>
-                        {children}
-                    </div>
+                <FilteredWorkersContext.Provider value={[filteredWorkers, loading]}>
+                    {children}
                 </FilteredWorkersContext.Provider>
             </WorkerFilterContext.Provider>
         </WorkerContext.Provider>

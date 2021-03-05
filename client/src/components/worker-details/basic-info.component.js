@@ -17,8 +17,8 @@ const WorkerBasicInfo = ({basicInfo, workerId}) => {
     const [department, setDepartment] = useState(worker.department);
     const [job, setJob] = useState(worker.job);
 
-    const departments = useDepartments();
-    const jobs = useJobs();
+    const [departments, departmentsLoading] = useDepartments();
+    const [jobs, jobsLoading] = useJobs();
 
     const departmentsView = departments.map((department) => <option value={department._id}>{department.name}</option>);
     const jobsView = jobs.map((job) => <option value={job._id}>{job.name}</option>);
@@ -86,8 +86,14 @@ const WorkerBasicInfo = ({basicInfo, workerId}) => {
                     <select className={"form-control mt-1"}
                             name={"department"}
                             id={"department"}
-                            value={department}>
+                            value={department}
+                            hidden={departmentsLoading}>
                         {departmentsView}
+                    </select>
+                    <select className={"form-control mt-1"}
+                            hidden={!departmentsLoading}
+                            disabled>
+                        <option>Загрузка отделов...</option>
                     </select>
                 </div>
                 <div className={"form-group mt-2"}>
@@ -95,8 +101,15 @@ const WorkerBasicInfo = ({basicInfo, workerId}) => {
                     <select className={"form-control mt-1"}
                             name={"job"}
                             id={"job"}
-                            value={job}>
+                            value={job}
+                            hidden={jobsLoading}
+                    >
                         {jobsView}
+                    </select>
+                    <select className={"form-control mt-1"}
+                            hidden={!jobsLoading}
+                            disabled>
+                    <option>Загрузка должностей...</option>
                     </select>
                 </div>
             </div>

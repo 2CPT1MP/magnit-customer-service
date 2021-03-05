@@ -8,7 +8,7 @@ export const useDepartments = () => {
 }
 
 export const DepartmentProvider = ( {children} ) => {
-    const {request} = useHttp();
+    const {request, loading} = useHttp();
     const [departments, setDepartments] = useState([]);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export const DepartmentProvider = ( {children} ) => {
     }, []);
 
     return (
-        <DepartmentContext.Provider value={departments}>
+        <DepartmentContext.Provider value={[departments, loading]}>
             {children}
         </DepartmentContext.Provider>
     );

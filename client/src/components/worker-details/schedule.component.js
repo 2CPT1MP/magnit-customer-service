@@ -118,7 +118,7 @@ const WorkerSchedule = () => {
                         <ScheduleDayEditor />
                     </div>
                 </div>
-                <button className={"btn btn-danger me-1"} onClick={onScheduleRemove}><i className="bi bi-file-earmark-x"/> Удалить</button>
+                <button className={"btn btn-danger me-1"} onClick={onScheduleRemove}><i className="bi bi-trash"/> Аннулировать</button>
                 <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить</button>
             </div>
         </div>

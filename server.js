@@ -26,6 +26,22 @@ connectToDatabase();
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
 
+/*
+server.use('/api/departments', (req, res, next) =>{
+  setTimeout(next, 2000);
+});
+
+server.use('/api/jobs', (req, res, next) =>{
+    setTimeout(next, 2500);
+});
+server.use('/api/workers', (req, res, next) =>{
+    setTimeout(next, 1000);
+});
+
+server.use('/api/workers/schedule', (req, res, next) =>{
+    setTimeout(next, 5000);
+});*/
+
 server.use("/api/workers", workerRouter);
 server.use("/api/departments", departmentRouter);
 server.use("/api/jobs", jobRouter);

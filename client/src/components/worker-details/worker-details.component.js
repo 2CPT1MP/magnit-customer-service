@@ -34,11 +34,15 @@ const WorkerDetails = () => {
     }, [worker]);
 
     if (!ready)
-        return <div>Loading...</div>;
+        return (
+            <div className={"alert alert-info loading"}><i className="bi bi-arrow-repeat" /> Загрузка информации о выбранном работнике...
+            </div>);
 
     return (
         <>
-            <div>
+            <div className={"alert alert-info finished"}><i className="bi bi-arrow-repeat" /> Загрузка информации о выбранном работнике...
+            </div>
+            <div className={"loading-subject"}>
                 <WorkerBasicInfo />
                 <WorkerSchedule />
             </div>
