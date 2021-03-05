@@ -33,13 +33,13 @@ const WorkersContainer = () => {
 
     return (
         <>
-            <div className={"alert alert-info mt-4 finished"}>
+            <div className={"alert alert-info mt-4 finished container"}>
                 <i className="bi bi-arrow-repeat" /> Загрузка рабочих...
             </div>
-            <div className={"alert alert-info mt-3"} hidden={!listEmpty}>
+            <div className={"alert alert-info mt-3 loading"} hidden={!listEmpty}>
                 <i className="bi bi-exclamation-triangle-fill"/> <strong>Сотрудники</strong> с заданными фильтрами <strong>не найдены</strong>
             </div>
-            <table className={"table mt-2 loading-subject"} hidden={listEmpty}>
+            <table className={"table mt-2 loading-subject container"} hidden={listEmpty}>
                 <thead>
                     <tr>
                         <th>Фамилия</th>

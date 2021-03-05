@@ -35,12 +35,12 @@ const WorkerDetails = () => {
 
     if (!ready)
         return (
-            <div className={"alert alert-info loading"}><i className="bi bi-arrow-repeat" /> Загрузка информации о выбранном работнике...
+            <div className={"alert alert-info loading container"}><i className="bi bi-arrow-repeat" /> Загрузка информации о выбранном работнике...
             </div>);
 
     return (
         <>
-            <div className={"alert alert-info finished"}><i className="bi bi-arrow-repeat" /> Загрузка информации о выбранном работнике...
+            <div className={"alert alert-info finished container"}><i className="bi bi-arrow-repeat" /> Загрузка информации о выбранном работнике...
             </div>
             <div className={"loading-subject"}>
                 <WorkerBasicInfo />

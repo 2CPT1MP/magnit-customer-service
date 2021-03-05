@@ -37,14 +37,14 @@ h1 {
 
 .finished {
   opacity: 0;
-  position: fixed;
+  position: absolute;
   animation-name: disappear;
   animation-duration: 1s;
 }
 
 .loading {
   opacity: 100%;
-  position: fixed;
+  position: absolute;
   animation-name: appear;
   animation-duration: 1s;
 }
