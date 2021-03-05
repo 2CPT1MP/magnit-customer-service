@@ -2,18 +2,20 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import {useDepartments} from "../../contexts/departments.context";
 import {useJobs} from "../../contexts/jobs.context";
+import {useWorker} from "../../contexts/worker/worker.context";
 
 const WorkerBasicInfo = ({basicInfo, workerId}) => {
-    console.log(basicInfo);
-    const [lastName, setLastName] = useState(basicInfo.name.last);
-    const [firstName, setFirstName] = useState(basicInfo.name.first);
-    const [middleName, setMiddleName] = useState(basicInfo.name.middle);
+    const [worker, setWorker] = useWorker();
 
-    const [address, setAddress] = useState(basicInfo.address);
-    const [phone, setPhone] = useState(basicInfo.phone);
+    const [lastName, setLastName] = useState(worker.name.last);
+    const [firstName, setFirstName] = useState(worker.name.first);
+    const [middleName, setMiddleName] = useState(worker.name.middle);
 
-    const [department, setDepartment] = useState(basicInfo.department);
-    const [job, setJob] = useState(basicInfo.job);
+    const [address, setAddress] = useState(worker.address);
+    const [phone, setPhone] = useState(worker.phone);
+
+    const [department, setDepartment] = useState(worker.department);
+    const [job, setJob] = useState(worker.job);
 
     const departments = useDepartments();
     const jobs = useJobs();
