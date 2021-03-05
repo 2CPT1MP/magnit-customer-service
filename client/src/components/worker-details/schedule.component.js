@@ -66,12 +66,19 @@ const WorkerSchedule = () => {
         setSchedule({});
     }
 
-    return (
+    const getMonth = (num) => {
+        const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль",
+                        "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+        return months[num];
+    }
+
+    if (!hasSchedule) {
+        return (
             <div className={"mt-5 mb-5"}>
                 <h2><i className="bi bi-calendar-date" /> Информация об отработанных часах</h2>
-                <p>Информация о количестве отработанных часах и переработках сотрудника
-                    в течении текущего месяца <strong>{hasSchedule?  '('+(schedule.month+1) + '.' + schedule.year+')' : ''}</strong></p>
-                <div hidden={hasSchedule}>
+                <p>Информация о количестве отработанных часов и переработках сотрудника
+                    в течении текущего месяца</p>
+                <div>
                     <div className={"alert alert-info mt-3"}>
                         <i className="bi bi-exclamation-triangle-fill" /> По данному работнику <strong>отсутствует информация </strong>
                         об отработанных часах и переработках. Вы можете <strong>добавить</strong> ее нажав на соответствующую кнопку под данным
@@ -79,32 +86,42 @@ const WorkerSchedule = () => {
                     </div>
                     <button className={"btn btn-primary"} onClick={onScheduleAdd}><i className="bi bi-plus-circle"/> Добавить</button>
                 </div>
-                <div hidden={!hasSchedule} >
-                    <div className={"row mt-2"}>
-                        <table className={"table table-bordered text-center col-sm"} >
-                            <thead>
-                                <tr>
-                                    <th>Пн</th>
-                                    <th>Вт</th>
-                                    <th>Ср</th>
-                                    <th>Чт</th>
-                                    <th>Пт</th>
-                                    <th>Сб</th>
-                                    <th>Вс</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {scheduleView}
-                            </tbody>
-                        </table>
-                        <div className={"col-sm mx-4"}>
-                            <ScheduleDayEditor />
-                        </div>
-                    </div>
-                    <button className={"btn btn-danger me-1"} onClick={onScheduleRemove}><i className="bi bi-file-earmark-x"/> Удалить</button>
-                    <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить</button>
-                </div>
             </div>
+        );
+    }
+
+    return (
+        <div className={"mt-5 mb-5"}>
+            <h2><i className="bi bi-calendar-date" /> Информация об отработанных часах</h2>
+            <p>Информация о количестве отработанных часов и переработках сотрудника
+                в течении текущего месяца</p>
+            <div>
+                <h3> {getMonth(schedule.month)} 2021</h3>
+                <div className={"row mt-2"}>
+                    <table className={"table table-bordered text-center col-sm"} >
+                        <thead>
+                            <tr>
+                                <th>Пн</th>
+                                <th>Вт</th>
+                                <th>Ср</th>
+                                <th>Чт</th>
+                                <th>Пт</th>
+                                <th>Сб</th>
+                                <th>Вс</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {scheduleView}
+                        </tbody>
+                    </table>
+                    <div className={"col-sm mx-4"}>
+                        <ScheduleDayEditor />
+                    </div>
+                </div>
+                <button className={"btn btn-danger me-1"} onClick={onScheduleRemove}><i className="bi bi-file-earmark-x"/> Удалить</button>
+                <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить</button>
+            </div>
+        </div>
     );
 }
 

@@ -17,12 +17,11 @@ const ScheduleDay = ({day}) => {
     const onSelect = (event) => {
         selectCurrentScheduleDay(day);
     }
-
     return (
         <td onMouseOver={onHover}
             onMouseLeave={onMouseLeave}
             onClick={onSelect}
-            className={(activated)? "table-primary":""}>
+            className={(activated)? "table-primary ":""}>
             {day}
         </td>
     );
