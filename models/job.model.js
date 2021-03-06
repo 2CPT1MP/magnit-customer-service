@@ -10,6 +10,10 @@ const jobSchema = new Schema({
             type: Types.ObjectId,
             ref: "Department"
         },
+    salary: {
+        type: Number,
+        required: true
+    },
     workers: [
         {
             type: Types.ObjectId,

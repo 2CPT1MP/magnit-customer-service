@@ -5,10 +5,13 @@ import ScheduleDay from "./schedule-day.component";
 import ScheduleDayEditor from "./schedule-day-editor.component";
 import { useSchedule } from "../../contexts/worker/schedule.context";
 import { useWorker } from "../../contexts/worker/worker.context";
+import {useFindJob} from "../../contexts/jobs.context";
 
 
 const WorkerSchedule = () => {
     const [worker, setWorker] = useWorker();
+    const findJobId = useFindJob();
+
     const [schedule, setSchedule] = useSchedule();
     const { request, error } = useHttp();
     const hasSchedule = useMemo(() => (schedule !== undefined) && (schedule.days !== undefined) && (schedule.days.length > 0), [schedule]);
@@ -97,6 +100,17 @@ const WorkerSchedule = () => {
         );
     }
 
+    const calculateTotal = () => {
+        if (worker.job) {
+            const job = findJobId(worker.job);
+            if (job) {
+                const salary = job.salary;
+                return schedule.days.reduce((total, d) => total += d.hours * salary, 0);
+            }
+        }
+        return 0;
+    }
+
     return (
         <div className={"mt-5 mb-5"}>
             <h2><i className="bi bi-calendar-date" /> Информация об отработанных часах</h2>
@@ -126,7 +140,7 @@ const WorkerSchedule = () => {
                     </div>
                 </div>
                 <button className={"btn btn-danger me-1"} onClick={onScheduleRemove}><i className="bi bi-trash"/> Аннулировать</button>
-                <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить</button>
+                <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить {calculateTotal()} ₽</button>
             </div>
         </div>
     );

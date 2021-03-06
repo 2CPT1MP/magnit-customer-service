@@ -38,6 +38,7 @@ workerRoute.get('/:id', async(req, res) => {
 
     try {
         const targetWorker = await WorkerModel.findOne({_id: workerId});
+        console.log(targetWorker);
         if (targetWorker !== null)
             res.status(200)
                .json(targetWorker);

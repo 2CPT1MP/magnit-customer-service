@@ -2,9 +2,14 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { useHttp } from "../hooks/http.hook";
 
 const JobContext = createContext([]);
+const FindJobContext = createContext([]);
 
 export const useJobs = () => {
     return useContext(JobContext);
+}
+
+export const useFindJob = () => {
+    return useContext(FindJobContext);
 }
 
 export const JobProvider = ( {children} ) => {
@@ -22,9 +27,15 @@ export const JobProvider = ( {children} ) => {
         fetchJobs();
     }, []);
 
+    const findJobById = (id) => {
+        return jobs.find((job) => job._id === id);
+    }
+
     return (
         <JobContext.Provider value={[jobs, loading, error]}>
-            {children}
+            <FindJobContext.Provider value={findJobById}>
+                {children}
+            </FindJobContext.Provider>
         </JobContext.Provider>
     );
 }
