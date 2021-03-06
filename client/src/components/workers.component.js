@@ -29,20 +29,23 @@ const WorkersContainer = () => {
                     <i className="bi bi-exclamation-triangle-fill"/> <strong>Сотрудники</strong> с заданными фильтрами <strong>не найдены</strong>
                </div>
 
-    return <table className={"table mt-2"}>
+    return <div>
+            <table className={"table table mt-2"}>
                 <thead>
                     <tr>
-                        <th>Фамилия</th>
-                        <th>Имя</th>
-                        <th>Отчество</th>
-                        <th>Подразделение</th>
-                        <th>Должность</th>
+                        <th className={"small-width"}>Сотрудник</th>
+                        <th className={"large-width"}>Фамилия</th>
+                        <th className={"large-width"}>Имя</th>
+                        <th className={"large-width"}>Отчество</th>
+                        <th className={"large-width"}>Подразделение</th>
+                        <th className={"large-width"}>Должность</th>
                     </tr>
                 </thead>
                 <tbody>
                     {workersView}
                 </tbody>
-            </table>;
+            </table>
+    </div>;
 }
 
 export default WorkersContainer;

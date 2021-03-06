@@ -32,21 +32,21 @@ const SearchComponent = () => {
     const jobsView = jobs.map((job) => <option key={job._id}>{job.name}</option>);
 
     return (
-        <form className={"form-inline mb-1 mt-4"} onSubmit={event => event.preventDefault()} autoComplete={"off"}>
-            <div className={"input-group"}>
-                <div className={"form-group col-sm-3"}>
-                    <select className={"form-control "} onChange={onChange} name={"department"} disabled={departmentsLoading || workersLoading}>
+        <form className={"form mb-1 mt-4"} onSubmit={event => event.preventDefault()} autoComplete={"off"}>
+            <div className={"input-group row"}>
+                <div className={"form-group my-1 col-sm"}>
+                    <select className={"form-control"} onChange={onChange} name={"department"} disabled={departmentsLoading || workersLoading}>
                         <option value={"any"}>Все отделы</option>
                         {departmentsView}
                     </select>
                 </div>
-                <div className={"form-group col-sm-3"}>
+                <div className={"form-group my-1 col-sm"}>
                     <select className={"form-control"} onChange={onChange} name={"job"} disabled={jobsLoading || workersLoading || departmentsLoading}>
                         <option value={"any"}>Все должности</option>
                         {jobsView}
                     </select>
                 </div>
-                <div className={"form-group col-sm"}>
+                <div className={"form-group my-1 col-lg"}>
                 <input type="text"
                        name="name"
                        id="name"
@@ -56,7 +56,6 @@ const SearchComponent = () => {
                        disabled={workersLoading}
                 />
                 </div>
-                <button type={"submit"} className={"btn btn-danger"}><i className={"bi-search"}/></button>
             </div>
         </form>
     );

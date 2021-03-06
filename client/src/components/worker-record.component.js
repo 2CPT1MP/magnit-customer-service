@@ -21,11 +21,14 @@ const WorkerRecord = (props) => {
            onMouseLeave={onMouseLeave}
            onClick={onClick}
        >
-           <td>{props.lastName}</td>
-           <td>{props.firstName}</td>
-           <td>{props.middleName}</td>
-           <td>{props.department}</td>
-           <td>{props.job}</td>
+           <td className={"small-width"}><strong>{props.lastName} {props.firstName} {props.middleName}</strong>
+               <br/>{props.job}<br/><em>{props.department}</em>
+           </td>
+           <td className={"large-width"}>{props.lastName}</td>
+           <td className={"large-width"}>{props.firstName}</td>
+           <td className={"large-width"}>{props.middleName}</td>
+           <td className={"large-width"}>{props.department}</td>
+           <td className={"large-width"}>{props.job}</td>
        </tr>
     );
 }

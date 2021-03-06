@@ -118,7 +118,7 @@ const WorkerSchedule = () => {
                 в течении текущего месяца</p>
             <div>
                 <h3> {getMonth(schedule.month)} 2021</h3>
-                <div className={"row mt-2"}>
+                <div className={"row mt-2 mx-auto"}>
                     <table className={"table table-bordered text-center col-sm"} >
                         <thead>
                             <tr>
@@ -135,11 +135,11 @@ const WorkerSchedule = () => {
                             {scheduleView}
                         </tbody>
                     </table>
-                    <div className={"col-sm mx-4"}>
+                    <div className={"col-sm mx-auto mb-2"}>
                         <ScheduleDayEditor />
                     </div>
                 </div>
-                <button className={"btn btn-danger me-1"} onClick={onScheduleRemove}><i className="bi bi-trash"/> Аннулировать</button>
+                <button className={"btn btn-danger my-1 me-1"} onClick={onScheduleRemove}><i className="bi bi-trash"/> Аннулировать</button>
                 <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить {calculateTotal()} ₽</button>
             </div>
         </div>
