@@ -13,8 +13,8 @@ const WorkersContainer = () => {
 
     if (workersLoading)
         return (
-            <div className={"alert alert-info mt-4 loading"}>
-                <i className="bi bi-arrow-repeat" /> Загрузка рабочих...
+            <div className={"alert alert-info mt-4 loading container"}>
+                <i className="bi bi-arrow-repeat" /> Загрузка рабочих
             </div>
         );
 
@@ -34,9 +34,9 @@ const WorkersContainer = () => {
     return (
         <>
             <div className={"alert alert-info mt-4 finished container"}>
-                <i className="bi bi-arrow-repeat" /> Загрузка рабочих...
+                <i className="bi bi-arrow-repeat" /> Загрузка рабочих
             </div>
-            <div className={"alert alert-info mt-3 loading"} hidden={!listEmpty}>
+            <div className={"alert alert-info mt-3 loading container"} hidden={!listEmpty}>
                 <i className="bi bi-exclamation-triangle-fill"/> <strong>Сотрудники</strong> с заданными фильтрами <strong>не найдены</strong>
             </div>
             <table className={"table mt-2 loading-subject container"} hidden={listEmpty}>
