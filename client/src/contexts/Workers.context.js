@@ -22,7 +22,7 @@ export const WorkerProvider = ( {children} ) => {
     const [workers, setWorkers] = useState([]);
     const [filteredWorkers, setFilteredWorkers] = useState([]);
 
-    useEffect(async() => {
+    useEffect(() => {
         const fetchWorkers = async() => {
             try {
                 const data = await request('/api/workers');
