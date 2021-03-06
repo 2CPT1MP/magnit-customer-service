@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {useCurrentScheduleDay, useSelectScheduleDay} from "../../contexts/worker/schedule.context";
 
 const ScheduleDay = ({day}) => {
@@ -14,14 +14,15 @@ const ScheduleDay = ({day}) => {
         event.target.classList.remove("table-active");
     }
 
-    const onSelect = (event) => {
+    const onSelect = () => {
         selectCurrentScheduleDay(day);
     }
     return (
         <td onMouseOver={onHover}
             onMouseLeave={onMouseLeave}
             onClick={onSelect}
-            className={(activated)? "table-primary ":""}>
+            className={(activated)? "table-primary " : ""}
+        >
             {day}
         </td>
     );

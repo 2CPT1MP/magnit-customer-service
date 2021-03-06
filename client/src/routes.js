@@ -5,7 +5,6 @@ import { WorkerRecordsPage } from "./pages/records.page";
 import { WorkerDetailsPage } from "./pages/details.page";
 
 export const workerRoutes = () => {
-
     return (
         <Switch>
             <Route path={"/workers"} exact>

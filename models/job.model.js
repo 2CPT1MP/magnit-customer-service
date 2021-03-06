@@ -4,7 +4,6 @@ const jobSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: false
     },
     department:
         {

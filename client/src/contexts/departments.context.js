@@ -8,23 +8,22 @@ export const useDepartments = () => {
 }
 
 export const DepartmentProvider = ( {children} ) => {
-    const {request, loading} = useHttp();
+    const {request, loading, error} = useHttp();
     const [departments, setDepartments] = useState([]);
 
     useEffect(() => {
-        const fetchData = async() => {
+        const fetchDepartments = async() => {
             try {
-                const data = await request('/api/departments');
-                setDepartments(data);
+                setDepartments(await request('/api/departments'));
             } catch (e) {
                 throw Error("Can't fetch departments!");
             }
         }
-        fetchData();
+        fetchDepartments();
     }, []);
 
     return (
-        <DepartmentContext.Provider value={[departments, loading]}>
+        <DepartmentContext.Provider value={[departments, loading, error]}>
             {children}
         </DepartmentContext.Provider>
     );

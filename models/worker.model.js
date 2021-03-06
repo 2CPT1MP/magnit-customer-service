@@ -5,25 +5,25 @@ const workerSchema = new Schema({
         first: {
             type: String,
             required: true,
-            unique: false
         },
         last: {
             type: String,
             required: true,
-            unique: false
+        },
+        middle: {
+            type: String,
+            required: true
         }
     },
     department: {
         type: Types.ObjectId,
         ref: "Department",
-        required: true,
-        unique: false
+        required: true
     },
     job: {
         type: Types.ObjectId,
         ref: "Job",
-        required: true,
-        unique: false
+        required: true
     },
     phone: {
         type: String,
@@ -32,32 +32,26 @@ const workerSchema = new Schema({
     },
     address: {
         type: String,
-        unique: false,
         required: true
     },
-
     schedule: {
         month: {
             type: Number,
-            required: true,
-            unique: false
+            required: false,
         },
         year: {
             type: Number,
-            required: true,
-            unique: false
+            required: false,
         },
         days: [
             {
                 day: {
                     type: Number,
-                    required: true,
-                    unique: false
+                    required: false,
                 },
                 hours: {
                     type: Number,
-                    required: true,
-                    unique: false
+                    required: false,
                 }
             }
         ]

@@ -7,7 +7,10 @@ export const useWorker = () => {
 }
 
 export const CurrentWorkerProvider = ( {children} ) => {
-    const [worker, setWorker] = useState([]);
+    const [worker, setWorker] = useState({
+        name: {first: "", middle: "", last: ""},
+        department: "", job: "", schedule: []
+    });
 
     return (
         <CurrentWorkerContext.Provider value={[worker, setWorker]}>

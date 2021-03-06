@@ -1,35 +1,32 @@
 const departmentRoute = require('express').Router();
-const departmentModel = require('../models/department.model');
+const DepartmentModel = require('../models/department.model');
 
 departmentRoute.get('/', async(req, res) => {
-    const allDepartments = await departmentModel.find({});
-    res.status(200);
-    res.contentType("application/json");
-    res.json(allDepartments);
+    const allDepartments = await DepartmentModel.find({});
+    res.status(200)
+       .contentType("application/json")
+       .json(allDepartments);
 });
 
 departmentRoute.get('/:id', async(req, res) => {
-    const targetId = req.params.id;
+    const departmentId = req.params.id;
     res.contentType("application/json");
 
     try {
-        const targetDepartment = await departmentModel.findOne({_id: targetId});
-
-        if (targetDepartment !== null) {
-            res.status(200);
-            res.json(targetDepartment);
-        }
-        else {
-            res.status(404);
-            res.json({
-                message: "Department with provided ID was not found"
-            });
-        }
+        const targetDepartment = await DepartmentModel.findOne({_id: departmentId});
+        if (targetDepartment !== null)
+            res.status(200)
+               .json(targetDepartment);
+        else
+            res.status(404)
+               .json({
+                   message: `A department with id ${departmentId} NOT FOUND`
+               });
     } catch (e) {
-        res.status(400);
-        res.json({
-            message: "Invalid department ID was provided"
-        });
+        res.status(400)
+           .json({
+               message: `department id ${departmentId} IS INVALID`
+           });
     }
 });
 

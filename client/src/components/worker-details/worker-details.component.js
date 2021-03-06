@@ -13,7 +13,6 @@ const WorkerDetails = () => {
 
     const [ready, setReady] = useState(false);
     const [schedule, setSchedule] = useSchedule();
-
     const [worker, setWorker] = useWorker();
 
     useEffect(() => {
@@ -34,18 +33,12 @@ const WorkerDetails = () => {
     }, [worker]);
 
     if (!ready)
-        return (
-            <div className={"alert alert-info loading container"}><i className="bi bi-arrow-repeat" /> Загрузка информации
-            </div>);
+        return <></>;
 
     return (
         <>
-            <div className={"alert alert-info finished container"}><i className="bi bi-arrow-repeat" /> Загрузка информации
-            </div>
-            <div className={"loading-subject"}>
-                <WorkerBasicInfo />
-                <WorkerSchedule />
-            </div>
+            <WorkerBasicInfo />
+            <WorkerSchedule />
         </>
     );
 }

@@ -1,10 +1,8 @@
 import React from 'react';
 import {useCurrentScheduleDay} from "../../contexts/worker/schedule.context";
-import {useState} from "react";
 
 const ScheduleDayEditor = () => {
     const day = useCurrentScheduleDay();
-
 
     if (day.hours === undefined)
         return (

@@ -1,53 +1,56 @@
 const workerRoute = require('express').Router();
-const workerModel = require('../models/worker.model');
+const WorkerModel = require('../models/worker.model');
 
 workerRoute.get('/', async(req, res) => {
-    const allWorkers = await workerModel.find({}, {schedule: false, phone: false, address: false})
-        .populate('department', 'name')
-        .populate('job', 'name');
+    const allWorkers = await WorkerModel.find({}, {
+        schedule: false,
+        phone: false,
+        address: false
+    })
+       .populate('department', 'name')
+       .populate('job', 'name');
 
-    res.status(200);
-    res.contentType("application/json");
-    res.json(allWorkers);
+    res.status(200)
+       .contentType("application/json")
+       .json(allWorkers);
 });
 
 
 workerRoute.put('/:id/schedule', async(req, res) => {
-    await workerModel.updateOne({_id: req.params.id}, {$set:{schedule: req.body}});
+    const workerId = req.params.id;
+    await WorkerModel.updateOne({_id: workerId}, {$set:{schedule: req.body}});
     res.json({
-        message: "okay"
+        message: `Schedule for worker ${workerId} was SUCCESSFULLY UPDATED`
     });
 });
 
 workerRoute.delete('/:id/schedule', async(req, res) => {
-    await workerModel.updateOne({_id: req.params.id}, {$unset:{schedule: {}}});
+    const workerId = req.params.id;
+    await WorkerModel.updateOne({_id: workerId}, {$unset:{schedule: {}}});
     res.json({
-        message: "okay"
+        message: `Schedule for worker ${workerId} was SUCCESSFULLY REMOVED`
     });
 });
 
 workerRoute.get('/:id', async(req, res) => {
-    const targetId = req.params.id;
+    const workerId = req.params.id;
     res.contentType("application/json");
 
     try {
-        const targetWorker = await workerModel.findOne({_id: targetId});
-
-        if (targetWorker !== null) {
-            res.status(200);
-            res.json(targetWorker);
-        }
-        else {
-            res.status(404);
-            res.json({
-                message: "Worker with provided ID was not found"
-            });
-        }
+        const targetWorker = await WorkerModel.findOne({_id: workerId});
+        if (targetWorker !== null)
+            res.status(200)
+               .json(targetWorker);
+        else
+            res.status(404)
+               .json({
+                   message: `Worker with id ${workerId} was NOT FOUND`
+               });
     } catch (e) {
-        res.status(400);
-        res.json({
-            message: "Invalid worker ID was provided"
-        });
+        res.status(400)
+           .json({
+               message: `Worker id ${workerId} is INVALID`
+           });
     }
 });
 

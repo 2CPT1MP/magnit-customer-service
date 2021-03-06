@@ -1,10 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from "react";
-import {useDepartments} from "../../contexts/departments.context";
-import {useJobs} from "../../contexts/jobs.context";
-import {useWorker} from "../../contexts/worker/worker.context";
+import { useState } from "react";
+import { useDepartments } from "../../contexts/departments.context";
+import { useJobs } from "../../contexts/jobs.context";
+import { useWorker } from "../../contexts/worker/worker.context";
 
-const WorkerBasicInfo = ({basicInfo, workerId}) => {
+const WorkerBasicInfo = () => {
     const [worker, setWorker] = useWorker();
 
     const [lastName, setLastName] = useState(worker.name.last);
@@ -102,8 +102,7 @@ const WorkerBasicInfo = ({basicInfo, workerId}) => {
                             name={"job"}
                             id={"job"}
                             value={job}
-                            hidden={jobsLoading}
-                    >
+                            hidden={jobsLoading}>
                         {jobsView}
                     </select>
                     <select className={"form-control mt-1"}

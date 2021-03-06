@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHttp } from "../../hooks/http.hook";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useEffect, useMemo} from "react";
 import ScheduleDay from "./schedule-day.component";
 import ScheduleDayEditor from "./schedule-day-editor.component";
-import {useSchedule} from "../../contexts/worker/schedule.context";
-import {useWorker} from "../../contexts/worker/worker.context";
+import { useSchedule } from "../../contexts/worker/schedule.context";
+import { useWorker } from "../../contexts/worker/worker.context";
 
 
 const WorkerSchedule = () => {
@@ -58,8 +58,15 @@ const WorkerSchedule = () => {
         setSchedule(worker.schedule);
     }, []);
 
-    useEffect(async() => {
-        await request(`/api/workers/${worker._id}/schedule`, 'PUT', schedule);
+    useEffect(() => {
+        const putSchedule = async() => {
+            try {
+                await request(`/api/workers/${worker._id}/schedule`, 'PUT', schedule);
+            } catch (e) {
+                throw new Error("Can't modify schedule");
+            }
+        }
+        putSchedule();
     }, [schedule]);
 
     const onScheduleRemove = async() => {

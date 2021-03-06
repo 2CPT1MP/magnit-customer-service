@@ -8,23 +8,22 @@ export const useJobs = () => {
 }
 
 export const JobProvider = ( {children} ) => {
-    const {request, loading} = useHttp();
+    const {request, loading, error} = useHttp();
     const [jobs, setJobs] = useState([]);
 
     useEffect(() => {
-        const fetchData = async() => {
+        const fetchJobs = async() => {
             try {
-                const data = await request('/api/jobs');
-                setJobs(data);
+                setJobs(await request('/api/jobs'));
             } catch (e) {
                 throw Error("Can't fetch departments!");
             }
         }
-        fetchData();
+        fetchJobs();
     }, []);
 
     return (
-        <JobContext.Provider value={[jobs, loading]}>
+        <JobContext.Provider value={[jobs, loading, error]}>
             {children}
         </JobContext.Provider>
     );

@@ -1,17 +1,15 @@
 const config = require('config');
 const mongoose = require('mongoose');
-
 const express = require("express");
-const server = express();
 
-const workerRouter = require('./routes/worker.route')
-const departmentRouter = require('./routes/department.route');
-const jobRouter = require('./routes/job.route');
+const server = express();
+const workerRoute = require('./routes/worker.route')
+const departmentRoute = require('./routes/department.route');
+const jobRoute = require('./routes/job.route');
 
 const connectToDatabase = async() => {
     try {
-        const DB_URL = config.get("DB_URL");
-        await mongoose.connect(DB_URL, {
+        await mongoose.connect(config.get("DB_URL"), {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
@@ -22,31 +20,19 @@ const connectToDatabase = async() => {
 }
 
 connectToDatabase();
-
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
-
 /*
-server.use('/api/departments', (req, res, next) =>{
-  setTimeout(next, 2000);
-});
+server.use('/api/workers', (req, res, next) => setTimeout(() => next(), 3000));
+server.use('/api/departments', (req, res, next) => setTimeout(() => next(), 1000));
+server.use('/api/jobs', (req, res, next) => setTimeout(() => next(), 2000));
+ */
 
-server.use('/api/jobs', (req, res, next) =>{
-    setTimeout(next, 2500);
-});
-server.use('/api/workers', (req, res, next) =>{
-    setTimeout(next, 1000);
-});
+server.use("/api/workers", workerRoute);
+server.use("/api/departments", departmentRoute);
+server.use("/api/jobs", jobRoute);
 
-server.use('/api/workers/schedule', (req, res, next) =>{
-    setTimeout(next, 5000);
-});*/
+server.listen(config.get("SERVER_PORT"),
+    () => console.log("Server listening on port " + config.get("SERVER_PORT")));
 
-server.use("/api/workers", workerRouter);
-server.use("/api/departments", departmentRouter);
-server.use("/api/jobs", jobRouter);
 
-const SERVER_PORT = config.get("SERVER_PORT");
-server.listen(SERVER_PORT, () => {
-    console.log("Server listening on port " + SERVER_PORT);
-});
