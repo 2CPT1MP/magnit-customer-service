@@ -104,8 +104,11 @@ const WorkerSchedule = () => {
         if (worker.job) {
             const job = findJobId(worker.job);
             if (job) {
-                const salary = job.salary;
-                return schedule.days.reduce((total, d) => total += d.hours * salary, 0);
+                const {salary, overpay, shift} = job;
+                return schedule.days.reduce((total, d) => {
+                    const overtime = (d.hours - shift < 0)? 0 : d.hours - shift;
+                    return total += overtime * overpay + d.hours * salary;
+                }, 0);
             }
         }
         return 0;

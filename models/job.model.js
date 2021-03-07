@@ -14,6 +14,14 @@ const jobSchema = new Schema({
         type: Number,
         required: true
     },
+    shift: {
+        type: Number,
+        required: true
+    },
+    overpay: {
+       type: Number,
+       required: true
+    },
     workers: [
         {
             type: Types.ObjectId,
