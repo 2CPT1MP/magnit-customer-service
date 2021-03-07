@@ -11,10 +11,8 @@ const ScheduleDayEditor = () => {
 
     if (day.hours === undefined)
         return (
-            <div className={"container"}>
-                <div className={"alert alert-info"}>
-                    <i className="bi bi-exclamation-triangle-fill" /> Выберите <strong>число</strong> месяца для отображения отработанных в этот день часов
-                </div>
+            <div className={"alert alert-info"}>
+                <i className="bi bi-exclamation-triangle-fill" /> Выберите <strong>число</strong> месяца для отображения отработанных в этот день часов
             </div>
         );
 
@@ -26,7 +24,6 @@ const ScheduleDayEditor = () => {
     }
 
     return (
-        <div className={"container"}>
         <form className="form" action="" onSubmit={event => event.preventDefault()}>
             <div className={"form-group"}>
                 <label htmlFor="hours"><i className="bi bi-clock"/> Отработано (часов) </label>
@@ -59,9 +56,7 @@ const ScheduleDayEditor = () => {
                        disabled
                 />
             </div>
-
         </form>
-        </div>
     );
 }
 

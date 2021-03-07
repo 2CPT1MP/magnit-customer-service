@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = ({title}) => {
     return (
-        <div className={"row mt-5 mb-5"}>
+        <div className={"row mt-5 mb-5 header"}>
             <div className={"col-sm-4 my-2"}>
                 <a href={"/"}>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Magnit_logo.svg/1200px-Magnit_logo.svg.png" alt="" width={"250px"}/>

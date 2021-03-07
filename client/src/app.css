@@ -12,18 +12,12 @@ body {
   font-family: "Segoe UI", sans-serif;
 }
 
-h1 {
+h1, h2, label {
   font-family: "Segoe UI Semibold", sans-serif;
 }
 
-
-
 .table-active {
   cursor: pointer;
-}
-
-.form-inline {
-
 }
 
 .small-width {

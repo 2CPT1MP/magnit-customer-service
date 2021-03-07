@@ -32,32 +32,39 @@ const SearchComponent = () => {
     const jobsView = jobs.map((job) => <option key={job._id}>{job.name}</option>);
 
     return (
-        <form className={"form mb-1 mt-4"} onSubmit={event => event.preventDefault()} autoComplete={"off"}>
-            <div className={"input-group row"}>
-                <div className={"form-group my-1 col-sm"}>
-                    <select className={"form-control"} onChange={onChange} name={"department"} disabled={departmentsLoading || workersLoading}>
-                        <option value={"any"}>Все отделы</option>
-                        {departmentsView}
-                    </select>
+        <div>
+            <h2><i className="bi bi-funnel"/> Фильтр </h2>
+            <p className={"mb-2"}>С помощью фильтра можно выводить лишь сотрудников определенного отдела, работающих на определенной должности или с определенными ФИО</p>
+            <form className={"form"} onSubmit={event => event.preventDefault()} autoComplete={"off"}>
+                <div className={"input-group row"}>
+                    <div className={"form-group my-1 col-sm"}>
+                        <label htmlFor="department">Отдел</label>
+                        <select className={"form-control mt-1"} onChange={onChange} name={"department"} disabled={departmentsLoading || workersLoading}>
+                            <option value={"any"}>Все отделы</option>
+                            {departmentsView}
+                        </select>
+                    </div>
+                    <div className={"form-group my-1 col-sm"}>
+                        <label htmlFor="job">Должность</label>
+                        <select className={"form-control mt-1"} onChange={onChange} name={"job"} disabled={jobsLoading || workersLoading || departmentsLoading}>
+                            <option value={"any"}>Все должности</option>
+                            {jobsView}
+                        </select>
+                    </div>
+                    <div className={"form-group my-1 col-lg"}>
+                        <label htmlFor="name">ФИО</label>
+                        <input type="text"
+                               name="name"
+                               id="name"
+                               className={"form-control mt-1"}
+                               onChange={onChange}
+                               placeholder={"Поиск по ФИО"}
+                               disabled={workersLoading}
+                        />
+                    </div>
                 </div>
-                <div className={"form-group my-1 col-sm"}>
-                    <select className={"form-control"} onChange={onChange} name={"job"} disabled={jobsLoading || workersLoading || departmentsLoading}>
-                        <option value={"any"}>Все должности</option>
-                        {jobsView}
-                    </select>
-                </div>
-                <div className={"form-group my-1 col-lg"}>
-                <input type="text"
-                       name="name"
-                       id="name"
-                       className={"form-control"}
-                       onChange={onChange}
-                       placeholder={"Поиск по ФИО"}
-                       disabled={workersLoading}
-                />
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 }
 

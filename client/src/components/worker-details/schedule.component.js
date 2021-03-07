@@ -135,7 +135,7 @@ const WorkerSchedule = () => {
                             {scheduleView}
                         </tbody>
                     </table>
-                    <div className={"col-sm mx-auto mb-2"}>
+                    <div className={"col mb-2"}>
                         <ScheduleDayEditor />
                     </div>
                 </div>
