@@ -1,7 +1,7 @@
 import React from 'react';
-import {useCurrentScheduleDay} from "../../contexts/worker/schedule.context";
-import {useWorker} from "../../contexts/worker/worker.context";
-import {useFindJob, useJobs} from "../../contexts/jobs.context";
+import {useCurrentScheduleDay} from "../../../contexts/current-worker/current-schedule.context";
+import {useWorker} from "../../../contexts/current-worker/current-worker.context";
+import {useFindJob, useJobs} from "../../../contexts/jobs.context";
 
 const ScheduleDayEditor = () => {
     const [worker] = useWorker();

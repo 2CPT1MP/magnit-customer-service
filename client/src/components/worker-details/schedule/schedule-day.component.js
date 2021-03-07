@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import {useCurrentScheduleDay, useSelectScheduleDay} from "../../contexts/worker/schedule.context";
+import {useCurrentScheduleDay, useSelectScheduleDay} from "../../../contexts/current-worker/current-schedule.context";
 
 const ScheduleDay = ({day}) => {
     const selectCurrentScheduleDay = useSelectScheduleDay();

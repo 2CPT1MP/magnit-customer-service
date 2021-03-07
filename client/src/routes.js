@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { WorkerRecordsPage } from "./pages/records.page";
-import { WorkerDetailsPage } from "./pages/details.page";
+import { WorkerRecordsPage } from "./pages/worker-records.page";
+import { WorkerDetailsPage } from "./pages/worker-details.page";
 
 export const workerRoutes = () => {
     return (

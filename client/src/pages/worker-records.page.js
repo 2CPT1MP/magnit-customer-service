@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchComponent from "../components/search.component";
-import WorkersContainer from "../components/workers.component";
+import WorkersContainer from "../components/worker-records/workers.component";
 import Header from "../components/header.component";
 
 export const WorkerRecordsPage = () => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import WorkerBasicInfo from './basic-info.component';
-import WorkerSchedule from './schedule.component';
+import WorkerSchedule from './schedule/schedule.component';
 import { useHttp } from "../../hooks/http.hook";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useSchedule } from "../../contexts/worker/schedule.context";
-import { useWorker } from "../../contexts/worker/worker.context";
+import { useSchedule } from "../../contexts/current-worker/current-schedule.context";
+import { useWorker } from "../../contexts/current-worker/current-worker.context";
 
 const WorkerDetails = () => {
     const {request} = useHttp();
@@ -22,7 +22,7 @@ const WorkerDetails = () => {
                 setWorker(data);
                 setReady(true);
             } catch (e) {
-                throw Error("Can't fetch worker basic info!");
+                throw Error("Can't fetch current-worker basic info!");
             }
         }
         fetchData();

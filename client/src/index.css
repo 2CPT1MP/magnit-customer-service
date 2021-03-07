@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Segoe UI';
+    src: url("fonts/segoe-ui.font.ttf");
+}
+
+@font-face {
+    font-family: 'Segoe UI Semibold';
+    src: url("fonts/segoe-ui-semibold.font.ttf");
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+}
+
+h1, h2, label {
+    font-family: "Segoe UI Semibold", sans-serif;
+}
+
+.table-active {
+    cursor: pointer;
+}
+
+.small-width {
+    display: none;
+}
+
+@media (max-width: 525px) {
+    .small-width {
+        display: block;
+    }
+    .large-width {
+        display: none;
+    }
+
+}

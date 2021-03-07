@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import { useDepartments } from "../../contexts/departments.context";
 import { useJobs } from "../../contexts/jobs.context";
-import { useWorker } from "../../contexts/worker/worker.context";
+import { useWorker } from "../../contexts/current-worker/current-worker.context";
 
 const WorkerBasicInfo = () => {
     const [worker, setWorker] = useWorker();

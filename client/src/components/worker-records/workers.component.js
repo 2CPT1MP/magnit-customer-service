@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WorkerRecord from "./worker-record.component";
-import { useFilteredWorkers } from "../contexts/workers.context";
+import { useFilteredWorkers } from "../../contexts/workers.context";
 
 const WorkersContainer = () => {
     const [workers, workersLoading] = useFilteredWorkers();

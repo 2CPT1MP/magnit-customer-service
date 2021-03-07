@@ -1,11 +1,11 @@
 import React from 'react';
-import { useHttp } from "../../hooks/http.hook";
+import { useHttp } from "../../../hooks/http.hook";
 import { useEffect, useMemo} from "react";
 import ScheduleDay from "./schedule-day.component";
 import ScheduleDayEditor from "./schedule-day-editor.component";
-import { useSchedule } from "../../contexts/worker/schedule.context";
-import { useWorker } from "../../contexts/worker/worker.context";
-import {useFindJob} from "../../contexts/jobs.context";
+import { useSchedule } from "../../../contexts/current-worker/current-schedule.context";
+import { useWorker } from "../../../contexts/current-worker/current-worker.context";
+import {useFindJob} from "../../../contexts/jobs.context";
 
 
 const WorkerSchedule = () => {
