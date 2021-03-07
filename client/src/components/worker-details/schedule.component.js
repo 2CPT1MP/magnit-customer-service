@@ -119,7 +119,7 @@ const WorkerSchedule = () => {
             <div>
                 <h3> {getMonth(schedule.month)} 2021</h3>
                 <div className={"row mt-2 mx-auto"}>
-                    <table className={"table table-bordered text-center col-sm"} >
+                    <table className={"table table-bordered text-center col-sm me-5"} >
                         <thead>
                             <tr>
                                 <th>Пн</th>
