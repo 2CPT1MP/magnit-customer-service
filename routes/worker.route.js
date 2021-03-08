@@ -24,6 +24,17 @@ workerRoute.put('/:id/schedule', async(req, res) => {
     });
 });
 
+workerRoute.put('/:id/schedule/:day', async(req, res) => {
+    const workerId = req.params.id;
+    const schDay = req.params.day;
+    const hrs = parseFloat(req.body.hours);
+
+    await WorkerModel.updateOne({_id: workerId, 'schedule.days.day' : schDay}, {$set:{'schedule.days.$.hours': hrs}});
+    res.json({
+        message: `Schedule for worker ${workerId} was SUCCESSFULLY UPDATED`
+    });
+});
+
 workerRoute.put('/:id', async(req, res) => {
     const workerId = req.params.id;
     await WorkerModel.updateOne({_id: workerId}, {...req.body});

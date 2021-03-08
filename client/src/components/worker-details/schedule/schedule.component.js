@@ -3,7 +3,7 @@ import { useHttp } from "../../../hooks/http.hook";
 import { useEffect, useMemo} from "react";
 import ScheduleDay from "./schedule-day.component";
 import ScheduleDayEditor from "./schedule-day-editor.component";
-import { useSchedule } from "../../../contexts/current-worker/current-schedule.context";
+import {useLocked, useSchedule} from "../../../contexts/current-worker/current-schedule.context";
 import { useWorker } from "../../../contexts/current-worker/current-worker.context";
 import {useFindJob} from "../../../contexts/jobs.context";
 
@@ -13,6 +13,7 @@ const WorkerSchedule = () => {
     const findJobId = useFindJob();
 
     const [schedule, setSchedule] = useSchedule();
+    const [locked] = useLocked();
     const { request, error } = useHttp();
     const hasSchedule = useMemo(() => (schedule !== undefined) && (schedule.days !== undefined) && (schedule.days.length > 0), [schedule]);
 
@@ -145,8 +146,10 @@ const WorkerSchedule = () => {
                         <ScheduleDayEditor />
                     </div>
                 </div>
-                <button className={"btn btn-danger my-1 me-1"} onClick={onScheduleRemove}><i className="bi bi-trash"/> Аннулировать</button>
-                <button className={"btn btn-success"}><i className="bi bi-credit-card"/> Выплатить {calculateTotal()} ₽</button>
+                <div>
+                    <button className={"btn btn-danger my-1 me-1"} onClick={onScheduleRemove} disabled={locked}><i className="bi bi-trash"/> Аннулировать</button>
+                    <button className={"btn btn-success"} disabled={locked}><i className="bi bi-credit-card"/> Выплатить {locked? "" : calculateTotal() + " ₽"}</button>
+                </div>
             </div>
         </div>
     );
