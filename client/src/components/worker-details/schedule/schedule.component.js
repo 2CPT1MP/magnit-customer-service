@@ -90,9 +90,11 @@ const WorkerSchedule = () => {
                     в течении текущего месяца</p>
                 <div>
                     <div className={"alert alert-info mt-3"}>
-                        <i className="bi bi-exclamation-triangle-fill" /> По данному работнику <strong>отсутствует информация </strong>
+                        <h3><i className="bi bi-info-circle"/> Нет расписания</h3>
+                        <p className={"mb-0"}>По данному работнику <strong>отсутствует информация </strong>
                         об отработанных часах и переработках. Вы можете <strong>добавить</strong> ее нажав на соответствующую кнопку под данным
                         уведомлением.
+                        </p>
                     </div>
                     <button className={"btn btn-primary"} onClick={onScheduleAdd}><i className="bi bi-plus-circle"/> Добавить</button>
                 </div>

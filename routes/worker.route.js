@@ -24,8 +24,17 @@ workerRoute.put('/:id/schedule', async(req, res) => {
     });
 });
 
+workerRoute.put('/:id', async(req, res) => {
+    const workerId = req.params.id;
+    await WorkerModel.updateOne({_id: workerId}, {...req.body});
+    res.json({
+        message: `Worker ${workerId} was SUCCESSFULLY UPDATED`
+    });
+});
+
 workerRoute.delete('/:id/schedule', async(req, res) => {
     const workerId = req.params.id;
+    console.log(workerId)
     await WorkerModel.updateOne({_id: workerId}, {$unset:{schedule: {}}});
     res.json({
         message: `Schedule for worker ${workerId} was SUCCESSFULLY REMOVED`

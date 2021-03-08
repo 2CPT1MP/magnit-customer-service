@@ -2,10 +2,11 @@ import React from 'react';
 import { useState } from "react";
 import { useDepartments } from "../../contexts/departments.context";
 import { useJobs } from "../../contexts/jobs.context";
-import { useWorker } from "../../contexts/current-worker/current-worker.context";
+import {useSaveWorker, useWorker} from "../../contexts/current-worker/current-worker.context";
 
 const WorkerBasicInfo = () => {
     const [worker, setWorker] = useWorker();
+    const saveWorker = useSaveWorker();
     const [departments, departmentsLoading] = useDepartments();
     const [jobs, jobsLoading] = useJobs();
 
@@ -19,6 +20,7 @@ const WorkerBasicInfo = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
+        saveWorker(formData);
         setWorker(formData);
     }
 
