@@ -114,15 +114,14 @@ const ScheduleDayEditor = () => {
                     />
                 </div>
                 <div className="form-group col">
-                    <label htmlFor="over-hours mt-2"><i className="bi bi-arrow-up" />&nbsp;Переработки</label>
+                    <label htmlFor="over-hours"><i className="bi bi-arrow-up" />&nbsp;Переработки</label>
                     <input className={"form-control mt-1 readonly"}
                            type="text"
                            name="over-hours"
                            id="over-hours"
-                           min={0}
-                           max={24}
                            value={getOvertimeView()}
                            disabled
+                           readOnly
                     />
                 </div>
             </div>
@@ -135,6 +134,7 @@ const ScheduleDayEditor = () => {
                            id="salary"
                            value={getHourSalary() + " ₽ / ч"}
                            disabled
+                           readOnly
                     />
                 </div>
                 <div className={"form-group mt-2 col"}>
@@ -146,6 +146,7 @@ const ScheduleDayEditor = () => {
                            id="salary"
                            value={getOverpay() + " ₽ / ч"}
                            disabled
+                           readOnly
                     />
                 </div>
             </div>
@@ -158,6 +159,7 @@ const ScheduleDayEditor = () => {
                            id="salary"
                            value={getDailyTotal() +" ₽"}
                            disabled
+                           readOnly
                     />
                 </div>
 

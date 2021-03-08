@@ -36,24 +36,22 @@ export const WorkerProvider = ( {children} ) => {
     }, []);
 
     const filterWorkers = (filter) => {
-        setFilteredWorkers(workers.filter((worker) => {
-            let eq = 0;
-            for (let field in filter) {
-                if (filter.hasOwnProperty(field) && worker.hasOwnProperty(field)) {
-                    if (field === 'name') {
-                        const fullName = `${worker.name.last} ${worker.name.first} ${worker.name.middle}`;
-                        if (fullName.indexOf(filter[field]) !== -1)
-                            eq++;
-                    } else {
-                        const workerField = `${worker[field]['name']}`;
-                        const filterField = `${filter[field]}`;
-                        if (workerField === filterField)
-                            eq++;
-                    }
-                }
-            }
-            return eq === Object.keys(filter).length;
-        }));
+       const filtered = workers.filter((worker) => {
+           let fieldsMatched = 0;
+           for (let field in filter) {
+               if (field === 'name') {
+                   const fullName = `${worker.lastName} ${worker.firstName} ${worker.middleName}`.toLowerCase();
+                   console.log(fullName, filter['name']);
+                   if (fullName.indexOf(filter['name'].toLowerCase()) !== -1)
+                       fieldsMatched++;
+               } else if (field === 'department' || field === 'job'){
+                   if (worker.hasOwnProperty(field) && worker[field]['name'] === filter[field])
+                       fieldsMatched++;
+               }
+           }
+           return Object.keys(filter).length === fieldsMatched;
+       });
+       setFilteredWorkers(filtered);
     }
 
     return (
