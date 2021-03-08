@@ -31,7 +31,7 @@ const WorkersContainer = () => {
                </div>
 
     return <div>
-            <table className={"table table mt-2"}>
+            <table className={"table table mt-4"}>
                 <thead>
                     <tr>
                         <th className={"small-width"}>Сотрудник</th>

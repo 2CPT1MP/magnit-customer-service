@@ -10,7 +10,7 @@ export const WorkerRecordsPage = () => {
             <SearchComponent />
             <WorkersContainer />
             <a href="/workers/create">
-                <button className={"btn btn-success"}>
+                <button className={"btn btn-success mt-4"}>
                     <i className="bi bi-plus-circle" />&nbsp;Добавить&nbsp;работника
                 </button>
             </a>
