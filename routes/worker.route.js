@@ -15,6 +15,13 @@ workerRoute.get('/', async(req, res) => {
        .json(allWorkers);
 });
 
+workerRoute.post('/', async (req, res) => {
+    await WorkerModel.create(req.body);
+    res.json({
+        message: `Worker created`
+    });
+});
+
 
 workerRoute.put('/:id/schedule', async(req, res) => {
     const workerId = req.params.id;

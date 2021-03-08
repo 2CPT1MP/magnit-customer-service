@@ -2,11 +2,17 @@ import React from 'react';
 import { useState } from "react";
 import { useDepartments } from "../../contexts/departments.context";
 import { useJobs } from "../../contexts/jobs.context";
-import {useLockedWorker, useSaveWorker, useWorker} from "../../contexts/current-worker/current-worker.context";
+import {
+    useCreateWorker,
+    useLockedWorker,
+    useSaveWorker,
+    useWorker
+} from "../../contexts/current-worker/current-worker.context";
 
-const WorkerBasicInfo = () => {
+const WorkerBasicInfo = ({create=false}) => {
     const [worker, setWorker] = useWorker();
     const saveWorker = useSaveWorker();
+    const createWorker = useCreateWorker();
     const [departments, departmentsLoading] = useDepartments();
     const [jobs, jobsLoading] = useJobs();
     const [locked, setLocked] = useLockedWorker();
@@ -21,8 +27,15 @@ const WorkerBasicInfo = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        saveWorker(formData);
-        setWorker(formData);
+        if (!create) {
+            saveWorker(formData);
+            setWorker(formData);
+        }
+        else {
+            createWorker(formData);
+            window.location.href="/workers";
+        }
+
     }
 
     const onReset = (event) => {
@@ -60,6 +73,7 @@ const WorkerBasicInfo = () => {
                            id="lastName"
                            value={formData.lastName}
                            onChange={onChange}
+                           required
                     />
                 </div>
                 <div className={"form-group mt-2"}>
@@ -70,6 +84,7 @@ const WorkerBasicInfo = () => {
                            id="firstName"
                            value={formData.firstName}
                            onChange={onChange}
+                           required
                     />
                 </div>
                 <div className={"form-group mt-2"}>
@@ -80,6 +95,7 @@ const WorkerBasicInfo = () => {
                            id="middleName"
                            value={formData.middleName}
                            onChange={onChange}
+                           required
                     />
                 </div>
             </div>
@@ -94,6 +110,7 @@ const WorkerBasicInfo = () => {
                                id="address"
                                value={formData.address}
                                onChange={onChange}
+                               required
                         />
                     </div>
                     <div className={"form-group mt-2"}>
@@ -104,6 +121,7 @@ const WorkerBasicInfo = () => {
                                id="phone"
                                value={formData.phone}
                                onChange={onChange}
+                               required
                         />
                     </div>
             </div>

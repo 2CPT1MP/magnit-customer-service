@@ -41,7 +41,6 @@ export const WorkerProvider = ( {children} ) => {
            for (let field in filter) {
                if (field === 'name') {
                    const fullName = `${worker.lastName} ${worker.firstName} ${worker.middleName}`.toLowerCase();
-                   console.log(fullName, filter['name']);
                    if (fullName.indexOf(filter['name'].toLowerCase()) !== -1)
                        fieldsMatched++;
                } else if (field === 'department' || field === 'job'){
