@@ -6,26 +6,42 @@ import { useWorker } from "../../contexts/current-worker/current-worker.context"
 
 const WorkerBasicInfo = () => {
     const [worker, setWorker] = useWorker();
-
-    const [lastName, setLastName] = useState(worker.name.last);
-    const [firstName, setFirstName] = useState(worker.name.first);
-    const [middleName, setMiddleName] = useState(worker.name.middle);
-
-    const [address, setAddress] = useState(worker.address);
-    const [phone, setPhone] = useState(worker.phone);
-
-    const [department, setDepartment] = useState(worker.department);
-    const [job, setJob] = useState(worker.job);
-
     const [departments, departmentsLoading] = useDepartments();
     const [jobs, jobsLoading] = useJobs();
 
     const departmentsView = departments.map((department) => <option value={department._id}>{department.name}</option>);
     const jobsView = jobs.map((job) => <option value={job._id}>{job.name}</option>);
 
+    const [formData, setFormData] = useState(worker);
+    const onChange = (event) => {
+        setFormData({...formData, [event.target.name]: event.target.value});
+    }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        setWorker(formData);
+    }
+
+    const onReset = (event) => {
+        event.preventDefault();
+        setFormData(worker);
+    }
+
+    const isNotModded = () => {
+        return JSON.stringify(worker) === JSON.stringify(formData);
+    }
+
     return (
-        <form onSubmit={event => event.preventDefault()} autoComplete={"off"}>
+        <form onSubmit={onSubmit} onReset={onReset} autoComplete={"off"}>
             <div className={"mt-5"}>
+                <div className={"mb-3"} hidden={isNotModded()}>
+                    <div className={"alert alert-danger"}>
+                        <h3><i className="bi bi-exclamation-triangle" /> Внесенные изменения</h3>
+                        <p>Информация о сотруднике была изменена</p>
+                    <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить изменения</button>
+                    <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Подтвердить изменения</button>
+                    </div>
+                </div>
                 <h2><i className="bi bi-info-circle"/> Базовая информация</h2>
                 <p>Основная паспортная информация о сотруднике</p>
                 <div className={"form-group mt-2"}>
@@ -34,7 +50,8 @@ const WorkerBasicInfo = () => {
                            type="text"
                            name="lastName"
                            id="lastName"
-                           value={lastName}
+                           value={formData.lastName}
+                           onChange={onChange}
                     />
                 </div>
                 <div className={"form-group mt-2"}>
@@ -43,7 +60,8 @@ const WorkerBasicInfo = () => {
                            type="text"
                            name="firstName"
                            id="firstName"
-                           value={firstName}
+                           value={formData.firstName}
+                           onChange={onChange}
                     />
                 </div>
                 <div className={"form-group mt-2"}>
@@ -52,7 +70,8 @@ const WorkerBasicInfo = () => {
                            type="text"
                            name="middleName"
                            id="middleName"
-                           value={middleName}
+                           value={formData.middleName}
+                           onChange={onChange}
                     />
                 </div>
             </div>
@@ -65,7 +84,8 @@ const WorkerBasicInfo = () => {
                                type="address"
                                name="address"
                                id="address"
-                               value={address}
+                               value={formData.address}
+                               onChange={onChange}
                         />
                     </div>
                     <div className={"form-group mt-2"}>
@@ -74,7 +94,8 @@ const WorkerBasicInfo = () => {
                                type="phone"
                                name="phone"
                                id="phone"
-                               value={phone}
+                               value={formData.phone}
+                               onChange={onChange}
                         />
                     </div>
             </div>
@@ -86,14 +107,10 @@ const WorkerBasicInfo = () => {
                     <select className={"form-control mt-1"}
                             name={"department"}
                             id={"department"}
-                            value={department}
-                            hidden={departmentsLoading}>
+                            value={formData.department}
+                            onChange={onChange}
+                            disabled={departmentsLoading}>
                         {departmentsView}
-                    </select>
-                    <select className={"form-control mt-1"}
-                            hidden={!departmentsLoading}
-                            disabled>
-                        <option>Загрузка отделов...</option>
                     </select>
                 </div>
                 <div className={"form-group mt-2"}>
@@ -101,15 +118,19 @@ const WorkerBasicInfo = () => {
                     <select className={"form-control mt-1"}
                             name={"job"}
                             id={"job"}
-                            value={job}
-                            hidden={jobsLoading}>
+                            value={formData.job}
+                            onChange={onChange}
+                           disabled={jobsLoading}>
                         {jobsView}
                     </select>
-                    <select className={"form-control mt-1"}
-                            hidden={!jobsLoading}
-                            disabled>
-                    <option>Загрузка должностей...</option>
-                    </select>
+                </div>
+            </div>
+            <div className={"mb-3"} hidden={isNotModded()}>
+                <div className={"alert alert-danger mt-3"}>
+                    <h3><i className="bi bi-exclamation-triangle" /> Внесенные изменения</h3>
+                    <p>Информация о сотруднике была изменена</p>
+                    <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить изменения</button>
+                    <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Подтвердить изменения</button>
                 </div>
             </div>
         </form>

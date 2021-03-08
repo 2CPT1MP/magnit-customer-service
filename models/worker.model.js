@@ -1,19 +1,17 @@
 const { Schema, model, Types } = require("mongoose");
 
 const workerSchema = new Schema({
-    name: {
-        first: {
-            type: String,
-            required: true,
-        },
-        last: {
-            type: String,
-            required: true,
-        },
-        middle: {
-            type: String,
-            required: true
-        }
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
+    },
+    middleName: {
+        type: String,
+        required: true
     },
     department: {
         type: Types.ObjectId,

@@ -14,9 +14,9 @@ const WorkersContainer = () => {
         return <></>;
 
     const workersView = workers.map((worker) => {
-        return <WorkerRecord firstName={worker.name.first}
-                          lastName={worker.name.last}
-                          middleName={worker.name.middle}
+        return <WorkerRecord firstName={worker.firstName}
+                          lastName={worker.lastName}
+                          middleName={worker.middleName}
                           department={worker.department.name}
                           job={worker.job.name}
                           id={worker._id}
