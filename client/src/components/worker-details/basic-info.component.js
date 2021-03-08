@@ -2,13 +2,14 @@ import React from 'react';
 import { useState } from "react";
 import { useDepartments } from "../../contexts/departments.context";
 import { useJobs } from "../../contexts/jobs.context";
-import {useSaveWorker, useWorker} from "../../contexts/current-worker/current-worker.context";
+import {useLockedWorker, useSaveWorker, useWorker} from "../../contexts/current-worker/current-worker.context";
 
 const WorkerBasicInfo = () => {
     const [worker, setWorker] = useWorker();
     const saveWorker = useSaveWorker();
     const [departments, departmentsLoading] = useDepartments();
     const [jobs, jobsLoading] = useJobs();
+    const [locked, setLocked] = useLockedWorker();
 
     const departmentsView = departments.map((department) => <option value={department._id}>{department.name}</option>);
     const jobsView = jobs.map((job) => <option value={job._id}>{job.name}</option>);
@@ -30,7 +31,12 @@ const WorkerBasicInfo = () => {
     }
 
     const isNotModded = () => {
-        return JSON.stringify(worker) === JSON.stringify(formData);
+        if (JSON.stringify(worker) === JSON.stringify(formData)) {
+            setLocked(false);
+            return true;
+        }
+        setLocked(true);
+        return false;
     }
 
     return (
@@ -38,10 +44,10 @@ const WorkerBasicInfo = () => {
             <div className={"mt-5"}>
                 <div className={"mb-3"} hidden={isNotModded()}>
                     <div className={"alert alert-danger"}>
-                        <h3><i className="bi bi-exclamation-triangle" /> Внесенные изменения</h3>
-                        <p>Информация о сотруднике была изменена</p>
-                    <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить изменения</button>
-                    <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Подтвердить изменения</button>
+                        <h3><i className="bi bi-exclamation-triangle" /> Информация изменена</h3>
+                        <p>Информация о сотруднике была <strong>изменена</strong>. Дополнительные <strong>поля недоступны</strong>. Необходимо <strong>принять или отменить</strong> внесенные изменения.</p>
+                    <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить</button>
+                    <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Принять</button>
                     </div>
                 </div>
                 <h2><i className="bi bi-info-circle"/> Базовая информация</h2>
@@ -129,10 +135,10 @@ const WorkerBasicInfo = () => {
             </div>
             <div className={"mb-3"} hidden={isNotModded()}>
                 <div className={"alert alert-danger mt-3"}>
-                    <h3><i className="bi bi-exclamation-triangle" /> Внесенные изменения</h3>
-                    <p>Информация о сотруднике была изменена</p>
-                    <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить изменения</button>
-                    <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Подтвердить изменения</button>
+                    <h3><i className="bi bi-exclamation-triangle" /> Информация изменена</h3>
+                    <p>Информация о сотруднике была <strong>изменена</strong>. Дополнительные <strong>поля недоступны</strong>. Необходимо <strong>принять или отменить</strong> внесенные изменения.</p>
+                    <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить</button>
+                    <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Принять</button>
                 </div>
             </div>
         </form>

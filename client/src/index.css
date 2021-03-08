@@ -37,3 +37,15 @@ h1, h2, h3, label {
 .readonly {
     border: none;
 }
+
+.table-current {
+    cursor: pointer;
+    font-size: 1.25em;
+    font-family: "Segoe UI Semibold", serif;
+}
+
+.disabled {
+    filter: blur(2px);
+    pointer-events: none;
+    user-select: none;
+}

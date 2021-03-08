@@ -3,6 +3,7 @@ import {useHttp} from "../../hooks/http.hook";
 
 const CurrentWorkerContext = createContext();
 const SaveWorkerContext = createContext();
+const LockedWorkerContext = createContext();
 
 export const useWorker = () => {
     return useContext(CurrentWorkerContext);
@@ -12,12 +13,17 @@ export const useSaveWorker = () => {
     return useContext(SaveWorkerContext);
 }
 
+export const useLockedWorker = () => {
+    return useContext(LockedWorkerContext);
+}
+
 export const CurrentWorkerProvider = ( {children} ) => {
     const {request} = useHttp();
     const [worker, setWorker] = useState({
         name: {first: "", middle: "", last: ""},
         department: "", job: "", schedule: []
     });
+    const [locked, setLocked] = useState(false);
 
     const saveWorker = async (updatedWorker) => {
         const sWorker = {...updatedWorker};
@@ -30,7 +36,9 @@ export const CurrentWorkerProvider = ( {children} ) => {
     return (
         <CurrentWorkerContext.Provider value={[worker, setWorker]}>
             <SaveWorkerContext.Provider value={saveWorker}>
-                {children}
+                <LockedWorkerContext.Provider value={[locked, setLocked]}>
+                    {children}
+                </LockedWorkerContext.Provider>
             </SaveWorkerContext.Provider>
         </CurrentWorkerContext.Provider>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import {
     useCurrentScheduleDay,
     useEditDayHours,
-    useLocked
+    useLockedSchedule
 } from "../../../contexts/current-worker/current-schedule.context";
 import {useWorker} from "../../../contexts/current-worker/current-worker.context";
 import {useFindJob, useJobs} from "../../../contexts/jobs.context";
@@ -14,7 +14,7 @@ const ScheduleDayEditor = () => {
     const day = useCurrentScheduleDay();
     const editDayHours = useEditDayHours();
     const [formHrs, setFormHrs] = useState(0);
-    const [locked, setLocked] = useLocked();
+    const [locked, setLocked] = useLockedSchedule();
 
     useEffect(() => {
         setFormHrs(day.hours);
@@ -164,9 +164,10 @@ const ScheduleDayEditor = () => {
             </div>
             <div className={"form-group mt-2 col"} hidden={isNotModded()}>
                 <div className={"alert alert-danger"}>
-                    <p>Внесены изменения</p>
-                    <button className={"btn btn-danger mt-1 me-1"} type={"reset"}>Отменить</button>
-                    <button className={"btn btn-success mt-1"} type={"submit"}>Подтвердить</button>
+                    <h3><i className="bi bi-exclamation-triangle" /> Информация изменена</h3>
+                    <p>Отработанные часы были изменены. Дополнительные действия недоступны. Необходимо подтвердить или отменить изменения.</p>
+                    <button className={"btn btn-danger mt-1 me-1"} type={"reset"}><i className="bi bi-x-circle" /> Отменить</button>
+                    <button className={"btn btn-success mt-1"} type={"submit"}><i className="bi bi-check-circle" /> Подтвердить</button>
                 </div>
             </div>
         </form>

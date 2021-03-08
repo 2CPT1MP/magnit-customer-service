@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import {useWorker} from "./current-worker.context";
+import {useLockedWorker, useWorker} from "./current-worker.context";
 import {useHttp} from "../../hooks/http.hook";
 
 const SelectScheduleDayContext = createContext({});
@@ -24,16 +24,17 @@ export const useSchedule = () => {
     return useContext(ScheduleContext);
 }
 
-export const useLocked = () => {
+export const useLockedSchedule = () => {
     return useContext(LockedContext);
 }
 
 
 export const ScheduleProvider = ( {children} ) => {
     const [worker, setWorker] = useWorker();
+
     const [schedule, setSchedule] = useState([]);
     const [currentScheduleDay, setCurrentScheduleDay] = useState({});
-    const [locked, setLocked] = useState(false);
+    const [lockedSchedule, setLockedSchedule] = useState(false);
     const {request} = useHttp();
 
     const selectScheduleDay = (day) => {
@@ -59,7 +60,7 @@ export const ScheduleProvider = ( {children} ) => {
             <CurrentScheduleContext.Provider value={currentScheduleDay}>
                 <SelectScheduleDayContext.Provider value={selectScheduleDay}>
                     <EditDayHoursContext.Provider value={editCurrentDayHrs}>
-                        <LockedContext.Provider value={[locked, setLocked]}>
+                        <LockedContext.Provider value={[lockedSchedule, setLockedSchedule]}>
                             {children}
                         </LockedContext.Provider>
                     </EditDayHoursContext.Provider>

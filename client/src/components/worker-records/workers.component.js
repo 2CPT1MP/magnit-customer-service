@@ -27,7 +27,7 @@ const WorkersContainer = () => {
     if (listEmpty)
         return <div className={"alert alert-info mt-3"}>
                     <h3><i className="bi bi-info-circle"/> Не найдено</h3>
-                    <p className={"mb-0"}>Сотрудники с заданными фильтрами не найдены</p>
+            <p className={"mb-0"}>Сотрудники с заданными фильтрами <strong>не найдены</strong></p>
                </div>
 
     return <div>
