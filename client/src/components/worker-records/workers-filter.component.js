@@ -1,32 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useHttp } from "../../hooks/http.hook";
+import { useState, useEffect } from 'react';
+import { useDepartments, useJobs } from "../../hooks/content-provider.hook";
 
 const WorkersFilter = ({workers, setFilteredWorkers}) => {
     const [filter, setFilter] = useState({});
-    const [departments, setDepartments] = useState([]);
-    const [jobs, setJobs] = useState([]);
-    const {request} = useHttp();
-
-    useEffect(() => {
-        const fetchDepartments = async () => {
-            try {
-                setDepartments(await request('/api/departments'));
-            } catch (e) {
-                throw Error("Can't fetch departments!\n" + e.message);
-            }
-        }
-
-        const fetchJobs = async () => {
-            try {
-                setJobs(await request('/api/jobs'));
-            } catch (e) {
-                throw Error("Can't fetch jobs!\n" + e.message);
-            }
-        }
-        fetchDepartments()
-        fetchJobs();
-    }, []);
-
+    const departments = useDepartments();
+    const jobs = useJobs();
     useEffect(() => filterWorkers(filter), [filter]);
 
     const filterWorkers = (filter) => {

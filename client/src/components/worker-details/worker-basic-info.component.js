@@ -1,37 +1,28 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useForm from "../../hooks/form.hook";
 import { useHttp } from '../../hooks/http.hook';
 import { useDepartments, useJobs } from "../../hooks/content-provider.hook";
 
 
-const WorkerBasicInfo = ({workerInfo, submitHandler}) => {
+const WorkerBasicInfo = ({workerInfo, submitHandler, contentChangedMessage}) => {
     const {request} = useHttp();
     const [formData, setFormData] = useState(workerInfo);
     const {onChange, onReset, isModified, onSubmit} = useForm(workerInfo, setFormData);
-
     const departments = useDepartments();
     const jobs = useJobs();
+
 
     // ARE PROVIDED BY PROPS!!!!!
     const createWorker = async (worker) => {
         await request(`/api/workers`, 'POST', worker);
     }
-    const modifiedMessage = (
-        <div className={"mb-3"}>
-            <div className={"alert alert-danger"}>
-                <h3><i className="bi bi-exclamation-triangle" /> Информация изменена</h3>
-                <p>Информация о сотруднике была <strong>изменена</strong>. Дополнительные <strong>поля недоступны</strong>. Необходимо <strong>принять или отменить</strong> внесенные изменения.</p>
-                <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить</button>
-                <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Принять</button>
-            </div>
-        </div>
-    );
     // ARE PROVIDED BY PROPS!!!!!
+
 
     return (
         <form onSubmit={(e) => onSubmit(e, submitHandler)} onReset={onReset} autoComplete={"off"}>
             <div className={"mt-5"}>
-                {isModified() && modifiedMessage}
+                {isModified() && contentChangedMessage}
                 <h2><i className="bi bi-info-circle"/> Базовая информация</h2>
                 <p>Основная паспортная информация о сотруднике</p>
                 <div className={"form-group mt-2"}>
@@ -118,7 +109,7 @@ const WorkerBasicInfo = ({workerInfo, submitHandler}) => {
                     </select>
                 </div>
             </div>
-            {isModified() && modifiedMessage}
+            {isModified() && contentChangedMessage}
         </form>
     );
 }

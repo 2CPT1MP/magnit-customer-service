@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { WorkerRecordsPage } from "./pages/worker-records.page";
 import { WorkerDetailsPage } from "./pages/worker-details.page";
-import {CreateWorkerPage} from "./pages/create-worker.page";
+import { CreateWorkerPage } from "./pages/create-worker.page";
 
 export const workerRoutes = () => {
     return (

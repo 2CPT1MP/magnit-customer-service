@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkersContainer from "../components/workers-container.component";
+import WorkersContainer from "../components/worker-records/workers-container.component";
 import Header from "../components/header.component";
 
 export const WorkerRecordsPage = () => {
