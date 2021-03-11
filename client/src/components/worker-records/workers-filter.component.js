@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHttp } from "../hooks/http.hook";
+import { useHttp } from "../../hooks/http.hook";
 
 const WorkersFilter = ({workers, setFilteredWorkers}) => {
     const [filter, setFilter] = useState({});
