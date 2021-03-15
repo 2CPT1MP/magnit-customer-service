@@ -1,7 +1,9 @@
-const workerRoute = require('express').Router();
-const WorkerModel = require('../models/worker.model');
+import {Request, Response, Router} from "express";
+import WorkerModel from '../models/worker.model'
 
-workerRoute.get('/', async(req, res) => {
+const workerRoute = Router();
+
+workerRoute.get('/', async(req: Request, res: Response) => {
     const allWorkers = await WorkerModel.find({}, {
         schedule: false,
         phone: false,
@@ -15,7 +17,7 @@ workerRoute.get('/', async(req, res) => {
        .json(allWorkers);
 });
 
-workerRoute.post('/', async (req, res) => {
+workerRoute.post('/', async (req: Request, res: Response) => {
     await WorkerModel.create(req.body);
     res.json({
         message: `Worker created`
@@ -23,7 +25,7 @@ workerRoute.post('/', async (req, res) => {
 });
 
 
-workerRoute.put('/:id/schedule', async(req, res) => {
+workerRoute.put('/:id/schedule', async(req: Request, res: Response) => {
     const workerId = req.params.id;
     await WorkerModel.updateOne({_id: workerId}, {$set:{schedule: req.body}});
     res.json({
@@ -31,7 +33,7 @@ workerRoute.put('/:id/schedule', async(req, res) => {
     });
 });
 
-workerRoute.put('/:id/schedule/:day', async(req, res) => {
+workerRoute.put('/:id/schedule/:day', async(req: Request, res: Response) => {
     const workerId = req.params.id;
     const schDay = req.params.day;
     const hrs = parseFloat(req.body.hours);
@@ -42,7 +44,7 @@ workerRoute.put('/:id/schedule/:day', async(req, res) => {
     });
 });
 
-workerRoute.put('/:id', async(req, res) => {
+workerRoute.put('/:id', async(req: Request, res: Response) => {
     const workerId = req.params.id;
     await WorkerModel.updateOne({_id: workerId}, {...req.body});
     res.json({
@@ -50,16 +52,16 @@ workerRoute.put('/:id', async(req, res) => {
     });
 });
 
-workerRoute.delete('/:id/schedule', async(req, res) => {
+workerRoute.delete('/:id/schedule', async(req: Request, res: Response) => {
     const workerId = req.params.id;
     console.log(workerId)
-    await WorkerModel.updateOne({_id: workerId}, {$unset:{schedule: {}}});
+    await WorkerModel.updateOne({_id: workerId}, {$unset:{schedule: true}});
     res.json({
         message: `Schedule for worker ${workerId} was SUCCESSFULLY REMOVED`
     });
 });
 
-workerRoute.get('/:id', async(req, res) => {
+workerRoute.get('/:id', async(req: Request, res: Response) => {
     const workerId = req.params.id;
     res.contentType("application/json");
 
@@ -81,5 +83,4 @@ workerRoute.get('/:id', async(req, res) => {
     }
 });
 
-module.exports = workerRoute;
-
+export default workerRoute;

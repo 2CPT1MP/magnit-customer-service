@@ -1,4 +1,8 @@
-import { FETCH_WORKERS, FETCH_WORKER_DETAILS, EDIT_WORKER_DETAILS } from "./types";
+import {
+    FETCH_WORKERS,
+    FETCH_WORKER_DETAILS,
+    EDIT_WORKER_DETAILS
+} from "./types";
 
 
 export const fetchWorkers = () => async (dispatch) => {

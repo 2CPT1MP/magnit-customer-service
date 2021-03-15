@@ -1,11 +1,11 @@
 const config = require('config');
-const mongoose = require('mongoose');
-const express = require("express");
+import mongoose from 'mongoose';
+import express from "express";
 
 const server = express();
-const workerRoute = require('./routes/worker.route')
-const departmentRoute = require('./routes/department.route');
-const jobRoute = require('./routes/job.route');
+import workerRoute from './routes/worker.route';
+import departmentRoute from './routes/department.route';
+import jobRoute from './routes/job.route';
 
 const connectToDatabase = async() => {
     try {
