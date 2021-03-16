@@ -53,7 +53,17 @@ const workerSchema = new Schema({
                 }
             }
         ]
-    }
+    },
+    transactions: [
+        {
+            timestamp: {
+                type: String
+            },
+            payout: {
+                type: Number
+            }
+        }
+    ]
 });
 
 export default model("Worker", workerSchema);

@@ -4,7 +4,7 @@ import { useEffect, useMemo} from "react";
 import ScheduleDay from "./schedule-day.component";
 import ScheduleDayEditor from "./schedule-day-editor.component";
 import {useLockedSchedule, useSchedule} from "../../../contexts/current-worker/current-schedule.context";
-import {useLockedWorker, useWorker} from "../../../contexts/current-worker/current-worker.context";
+import {useAddPayout, useLockedWorker, useWorker} from "../../../contexts/current-worker/current-worker.context";
 import {useFindJob} from "../../../contexts/jobs.context";
 
 
@@ -16,6 +16,7 @@ const WorkerSchedule = () => {
     const [lockedSchedule] = useLockedSchedule();
     const [lockedWorker] = useLockedWorker();
     const { request, error } = useHttp();
+    const addPayout = useAddPayout()
     const hasSchedule = useMemo(() => (schedule !== undefined) && (schedule.days !== undefined) && (schedule.days.length > 0), [schedule]);
 
     const scheduleView = useMemo(() => {
@@ -75,6 +76,11 @@ const WorkerSchedule = () => {
     }, [schedule]);
 
     const onScheduleRemove = async() => {
+        setSchedule({});
+    }
+
+    const onPayoutAdd = async() => {
+        addPayout({timestamp: new Date().toLocaleString(), payout: calculateTotal()})
         setSchedule({});
     }
 
@@ -152,7 +158,7 @@ const WorkerSchedule = () => {
                 </div>
                 <div className={`${lockedS}`}>
                     <button className={"btn btn-danger my-1 me-1"} onClick={onScheduleRemove} disabled={lockedSchedule}><i className="bi bi-trash"/> Аннулировать</button>
-                    <button className={"btn btn-success"} disabled={lockedSchedule}><i className="bi bi-credit-card"/> Выплатить {lockedSchedule? "" : calculateTotal() + " ₽"}</button>
+                    <button className={"btn btn-success"} onClick={onPayoutAdd} disabled={lockedSchedule}><i className="bi bi-credit-card"/> Выплатить {lockedSchedule? "" : calculateTotal() + " ₽"}</button>
                 </div>
             </div>
         </div>

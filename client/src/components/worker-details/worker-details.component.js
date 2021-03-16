@@ -1,6 +1,7 @@
 import React from 'react';
 import WorkerBasicInfo from './basic-info.component';
 import WorkerSchedule from './schedule/schedule.component';
+import WorkerTransactionsComponent from "./worker-transactions.component";
 import { useHttp } from "../../hooks/http.hook";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
@@ -14,6 +15,7 @@ const WorkerDetails = () => {
     const [ready, setReady] = useState(false);
     const [schedule, setSchedule] = useSchedule();
     const [worker, setWorker] = useWorker();
+
 
     useEffect(() => {
         const fetchData = async() => {
@@ -39,6 +41,7 @@ const WorkerDetails = () => {
         <>
             <WorkerBasicInfo />
             <WorkerSchedule />
+            <WorkerTransactionsComponent />
         </>
     );
 }

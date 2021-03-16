@@ -44,7 +44,13 @@ const WorkerBasicInfo = ({create=false}) => {
     }
 
     const isNotModded = () => {
-        if (JSON.stringify(worker) === JSON.stringify(formData)) {
+        const compWorker = {...worker};
+        delete compWorker.transactions;
+
+        const formWorker = {...formData};
+        delete formWorker.transactions;
+
+        if (JSON.stringify(compWorker) === JSON.stringify(formWorker)) {
             setLocked(false);
             return true;
         }

@@ -5,6 +5,7 @@ const CurrentWorkerContext = createContext();
 const SaveWorkerContext = createContext();
 const CreateWorkerContext = createContext();
 const LockedWorkerContext = createContext();
+const AddPayoutContext = createContext();
 
 export const useWorker = () => {
     return useContext(CurrentWorkerContext);
@@ -20,6 +21,10 @@ export const useCreateWorker = () => {
 
 export const useLockedWorker = () => {
     return useContext(LockedWorkerContext);
+}
+
+export const useAddPayout = () => {
+    return useContext(AddPayoutContext);
 }
 
 export const CurrentWorkerProvider = ( {children} ) => {
@@ -39,17 +44,26 @@ export const CurrentWorkerProvider = ( {children} ) => {
     }
 
     const createWorker = async (worker) => {
-        console.log(worker);
         await request(`/api/workers`, 'POST', worker);
+    }
+
+    const addPayout = async (transaction) => {
+        console.log(transaction);
+        await request(`/api/workers/${worker._id}/transactions`, 'POST', transaction);
+        console.log(transaction);
+        setWorker({...worker, transactions: [transaction, ...worker.transactions]})
+        console.log(worker);
     }
 
     return (
         <CurrentWorkerContext.Provider value={[worker, setWorker]}>
             <SaveWorkerContext.Provider value={saveWorker}>
                 <CreateWorkerContext.Provider value={createWorker}>
-                    <LockedWorkerContext.Provider value={[locked, setLocked]}>
-                        {children}
-                    </LockedWorkerContext.Provider>
+                    <AddPayoutContext.Provider value={addPayout}>
+                        <LockedWorkerContext.Provider value={[locked, setLocked]}>
+                            {children}
+                        </LockedWorkerContext.Provider>
+                    </AddPayoutContext.Provider>
                 </CreateWorkerContext.Provider>
             </SaveWorkerContext.Provider>
         </CurrentWorkerContext.Provider>
