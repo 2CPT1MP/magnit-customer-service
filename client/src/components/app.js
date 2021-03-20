@@ -19,17 +19,13 @@ const App = () => {
     <AuthContext.Provider value={{
         token, login, logout, userId, isAuthenticated
     }}>
-        <WorkerProvider>
-            <DepartmentProvider>
-                <JobProvider>
+
                     <Router>
                         <div className={"container"}>
                             {routes}
                         </div>
                     </Router>
-                </JobProvider>
-            </DepartmentProvider>
-        </WorkerProvider>
+
     </AuthContext.Provider>
   );
 }
