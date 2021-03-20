@@ -4,7 +4,7 @@ import LoginComponent from "../components/login.component";
 const LoginPage = () => {
     return (
         <>
-            <Header title={"Авторизация"}/>
+            <Header title={"Авторизация"} canLogOut={false}/>
             <LoginComponent />
         </>
     );

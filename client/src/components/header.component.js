@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import AuthContext from "../contexts/auth.context";
 
-const Header = ({title="Без названия", createNew=false}) => {
+const Header = ({title="Без названия", createNew=false, canLogOut=true}) => {
+    const {logout} = useContext(AuthContext);
+
     return (
         <div className={"row mt-5 mb-5 header align-items-center"}>
             <div className={"col my-2"}>
@@ -11,7 +14,8 @@ const Header = ({title="Без названия", createNew=false}) => {
             <div className={"col my-2 text-center"}>
                 <h1>{title}</h1>
             </div>
-            <div className={"col"}>
+            <div className={"col my-2"}>
+                <button className={"btn btn-outline-primary"} onClick={logout} hidden={!canLogOut}>Выйти</button>
             </div>
         </div>
     );
