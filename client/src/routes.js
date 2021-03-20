@@ -4,8 +4,20 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { WorkerRecordsPage } from "./pages/worker-records.page";
 import { WorkerDetailsPage } from "./pages/worker-details.page";
 import {CreateWorkerPage} from "./pages/create-worker.page";
+import LoginPage from "./pages/login.page";
 
-export const workerRoutes = () => {
+export const workerRoutes = (isAuthenticated) => {
+
+    if (!isAuthenticated)
+        return (
+            <Switch>
+                <Route path={"/login"} exact>
+                    <LoginPage />
+                </Route>
+                <Redirect to={"/login"} />
+            </Switch>
+        );
+
     return (
         <Switch>
             <Route path={"/workers"} exact>

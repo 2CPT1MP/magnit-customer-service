@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import {useHttp} from "../../hooks/http.hook";
+import AuthContext from "../auth.context";
 
 const CurrentWorkerContext = createContext();
 const SaveWorkerContext = createContext();
@@ -29,6 +30,7 @@ export const useAddPayout = () => {
 
 export const CurrentWorkerProvider = ( {children} ) => {
     const {request} = useHttp();
+    const {token} = useContext(AuthContext);
     const [worker, setWorker] = useState({
         firstName: "", middleName: "", lastName: "",
         department: "", job: "", schedule: []
@@ -40,16 +42,22 @@ export const CurrentWorkerProvider = ( {children} ) => {
         delete sWorker.schedule;
         delete sWorker._id;
 
-        await request(`/api/workers/${worker._id}`, 'PUT', sWorker);
+        await request(`/api/workers/${worker._id}`, 'PUT', sWorker, {
+            Authorization: `Bearer ${token}`
+        });
     }
 
     const createWorker = async (worker) => {
-        await request(`/api/workers`, 'POST', worker);
+        await request(`/api/workers`, 'POST', worker, {
+            Authorization: `Bearer ${token}`
+        });
     }
 
     const addPayout = async (transaction) => {
         console.log(transaction);
-        await request(`/api/workers/${worker._id}/transactions`, 'POST', transaction);
+        await request(`/api/workers/${worker._id}/transactions`, 'POST', transaction, {
+            Authorization: `Bearer ${token}`
+        });
         console.log(transaction);
         setWorker({...worker, transactions: [transaction, ...worker.transactions]})
         console.log(worker);

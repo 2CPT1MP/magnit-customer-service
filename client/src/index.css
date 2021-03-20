@@ -49,3 +49,8 @@ h1, h2, h3, label {
     pointer-events: none;
     user-select: none;
 }
+
+.login-form {
+    margin: auto;
+    max-width: 300px;
+}

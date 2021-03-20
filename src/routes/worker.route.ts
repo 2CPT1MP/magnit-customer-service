@@ -1,5 +1,6 @@
-import {Request, Response, Router} from "express";
+import {Request, Response, NextFunction, Router} from "express";
 import WorkerModel from '../models/worker.model'
+import authMiddleware, {AuthorizedRequest} from '../middleware/auth.middleware';
 
 const workerRoute = Router();
 

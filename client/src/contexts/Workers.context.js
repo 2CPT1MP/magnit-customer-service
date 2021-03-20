@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useHttp } from "../hooks/http.hook";
+import AuthContext from "./auth.context";
 
 const WorkerContext = createContext();
 const FilteredWorkersContext = createContext();
@@ -21,11 +22,14 @@ export const WorkerProvider = ( {children} ) => {
     const {loading, request, error} = useHttp();
     const [workers, setWorkers] = useState([]);
     const [filteredWorkers, setFilteredWorkers] = useState([]);
+    const {token} = useContext(AuthContext);
 
     useEffect(() => {
         const fetchWorkers = async() => {
             try {
-                const data = await request('/api/workers');
+                const data = await request('/api/workers', 'GET', null, {
+                    Authorization: `Bearer ${token}`
+                });
                 setWorkers(data);
                 setFilteredWorkers(data);
             } catch (e) {

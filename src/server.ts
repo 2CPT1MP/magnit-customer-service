@@ -6,6 +6,8 @@ const server = express();
 import workerRoute from './routes/worker.route';
 import departmentRoute from './routes/department.route';
 import jobRoute from './routes/job.route';
+import authRoute from './routes/auth.routes';
+import authMiddleware from './middleware/auth.middleware';
 
 const connectToDatabase = async() => {
     try {
@@ -28,9 +30,11 @@ server.use('/api/departments', (req, res, next) => setTimeout(() => next(), 1000
 server.use('/api/jobs', (req, res, next) => setTimeout(() => next(), 2000));
  */
 
+server.use('/api', authMiddleware)
 server.use("/api/workers", workerRoute);
 server.use("/api/departments", departmentRoute);
 server.use("/api/jobs", jobRoute);
+server.use("/auth", authRoute);
 
 server.listen(config.get("SERVER_PORT"),
     () => console.log("Server listening on port " + config.get("SERVER_PORT")));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useHttp } from "../../../hooks/http.hook";
 import { useEffect, useMemo} from "react";
 import ScheduleDay from "./schedule-day.component";
@@ -6,11 +6,13 @@ import ScheduleDayEditor from "./schedule-day-editor.component";
 import {useLockedSchedule, useSchedule} from "../../../contexts/current-worker/current-schedule.context";
 import {useAddPayout, useLockedWorker, useWorker} from "../../../contexts/current-worker/current-worker.context";
 import {useFindJob} from "../../../contexts/jobs.context";
+import AuthContext from "../../../contexts/auth.context";
 
 
 const WorkerSchedule = () => {
     const [worker, setWorker] = useWorker();
     const findJobId = useFindJob();
+    const {token} = useContext(AuthContext);
 
     const [schedule, setSchedule] = useSchedule();
     const [lockedSchedule] = useLockedSchedule();
@@ -67,13 +69,17 @@ const WorkerSchedule = () => {
     useEffect(() => {
         const putSchedule = async() => {
             try {
-                await request(`/api/workers/${worker._id}/schedule`, 'PUT', schedule);
+                await request(`/api/workers/${worker._id}/schedule`, 'PUT', schedule, {
+                    Authorization: `Bearer ${token}`
+                });
             } catch (e) {
                 throw new Error("Can't modify schedule");
             }
         }
         putSchedule();
     }, [schedule]);
+
+
 
     const onScheduleRemove = async() => {
         setSchedule({});

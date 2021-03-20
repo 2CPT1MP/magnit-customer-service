@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import {useLockedWorker, useWorker} from "./current-worker.context";
 import {useHttp} from "../../hooks/http.hook";
+import AuthContext from "../auth.context";
 
 const SelectScheduleDayContext = createContext({});
 const CurrentScheduleContext = createContext({});
@@ -31,6 +32,7 @@ export const useLockedSchedule = () => {
 
 export const ScheduleProvider = ( {children} ) => {
     const [worker, setWorker] = useWorker();
+    const {token} = useContext(AuthContext);
 
     const [schedule, setSchedule] = useState([]);
     const [currentScheduleDay, setCurrentScheduleDay] = useState({});
@@ -43,7 +45,9 @@ export const ScheduleProvider = ( {children} ) => {
     }
 
     const editCurrentDayHrs = async(hours) => {
-        await request(`/api/workers/${worker._id}/schedule/${currentScheduleDay.day}`, 'PUT', {hours});
+        await request(`/api/workers/${worker._id}/schedule/${currentScheduleDay.day}`, 'PUT', {hours}, {
+            Authorization: `Bearer ${token}`
+        });
         setCurrentScheduleDay({...currentScheduleDay, hours});
         const newSch = schedule.days.map((day) => {
             if ( day.day === currentScheduleDay.day)
