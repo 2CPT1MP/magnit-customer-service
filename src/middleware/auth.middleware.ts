@@ -19,7 +19,6 @@ const AuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
             return res.status(401).json({message: "Unauthorized"});
 
         const parsedToken = token.split(' ')[1];
-        console.log(config.get("JWT_SECRET_TOKEN"));
         (req as AuthorizedRequest).user = verify(parsedToken, config.get("JWT_SECRET_TOKEN"));
 
         return next();

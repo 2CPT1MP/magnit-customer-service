@@ -14,7 +14,7 @@ const Header = ({title="Без названия", createNew=false, canLogOut=tru
             <div className={"col my-2 text-center"}>
                 <h1>{title}</h1>
             </div>
-            <div className={"col my-2"}>
+            <div className={"col my-2"} style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <button className={"btn btn-outline-primary"} onClick={logout} hidden={!canLogOut}>Выйти</button>
             </div>
         </div>

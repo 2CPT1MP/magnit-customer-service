@@ -3,7 +3,7 @@ import {useContext, useState} from 'react';
 import AuthContext from '../contexts/auth.context';
 
 const LoginComponent = () => {
-    const { request } = useHttp();
+    const { request, error } = useHttp();
     const [form, setForm] = useState({
         username: '',
         password: ''
@@ -21,14 +21,21 @@ const LoginComponent = () => {
         event.preventDefault();
         try {
             const data = await request('/auth/login', 'POST', {...form});
+
             Auth.login(data.jwtToken, data.userId);
         } catch (e) {
-
+            console.log(error);
         }
     }
 
     return (
         <div className>
+            <div className={"alert alert-danger"} hidden={!error}>
+                <h3><i className="bi bi-x-circle" /> Неверные данные</h3>
+                <div>
+                    Неверный логин и/или пароль. Проверьте правильность введенных данных и попробуйте еще раз
+                </div>
+            </div>
             <form className={"form login-form"} onSubmit={onLogin}>
                 <div className={"form-group"}>
                     <label htmlFor="username"><i className="bi bi-person" /> Логин</label>

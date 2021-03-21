@@ -23,8 +23,8 @@ authRouter.post('/login', async(req: Request, res: Response) => {
 
     const jwtToken = sign(
         {userId: targetUser._id},
-        config.get("JWT_SECRET_TOKEN"),
-        {expiresIn: '1h'}
+        config.get("JWT_SECRET_TOKEN")/*,
+        {expiresIn: '1h'}*/
     );
 
     res.json({
