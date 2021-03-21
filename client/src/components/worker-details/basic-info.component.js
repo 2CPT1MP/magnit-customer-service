@@ -64,7 +64,7 @@ const WorkerBasicInfo = ({create=false}) => {
                 <div className={"mb-3"} hidden={isNotModded()}>
                     <div className={"alert alert-danger"}>
                         <h3><i className="bi bi-exclamation-triangle" /> Информация изменена</h3>
-                        <p>Информация о сотруднике была <strong>изменена</strong>. Дополнительные <strong>поля недоступны</strong>. Необходимо <strong>принять или отменить</strong> внесенные изменения.</p>
+                        <p>Информация о сотруднике была <strong>изменена</strong>. Необходимо <strong>принять или отменить</strong> внесенные изменения.</p>
                     <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить</button>
                     <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Принять</button>
                     </div>
@@ -141,7 +141,10 @@ const WorkerBasicInfo = ({create=false}) => {
                             id={"department"}
                             value={formData.department}
                             onChange={onChange}
-                            disabled={departmentsLoading}>
+                            disabled={departmentsLoading}
+                            required
+                    >
+                        <option value={""} disabled>Выберите отдел</option>
                         {departmentsView}
                     </select>
                 </div>
@@ -152,7 +155,10 @@ const WorkerBasicInfo = ({create=false}) => {
                             id={"job"}
                             value={formData.job}
                             onChange={onChange}
-                           disabled={jobsLoading}>
+                            disabled={jobsLoading}
+                            required
+                    >
+                        <option value={""} disabled>Выберите должность</option>
                         {jobsView}
                     </select>
                 </div>
@@ -160,7 +166,7 @@ const WorkerBasicInfo = ({create=false}) => {
             <div className={"mb-3"} hidden={isNotModded()}>
                 <div className={"alert alert-danger mt-3"}>
                     <h3><i className="bi bi-exclamation-triangle" /> Информация изменена</h3>
-                    <p>Информация о сотруднике была <strong>изменена</strong>. Дополнительные <strong>поля недоступны</strong>. Необходимо <strong>принять или отменить</strong> внесенные изменения.</p>
+                    <p>Информация о сотруднике была <strong>изменена</strong>. Необходимо <strong>принять или отменить</strong> внесенные изменения.</p>
                     <button type="reset" className="btn btn-danger me-1"><i className="bi bi-x-circle" /> Отменить</button>
                     <button type="submit" className="btn btn-success"><i className="bi bi-check-circle" /> Принять</button>
                 </div>

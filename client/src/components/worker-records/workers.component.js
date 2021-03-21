@@ -30,8 +30,8 @@ const WorkersContainer = () => {
             <p className={"mb-0"}>Сотрудники с заданными фильтрами <strong>не найдены</strong></p>
                </div>
 
-    return <div>
-            <table className={"table table mt-4"}>
+    return <div className={"workers-table mt-4"}>
+            <table className={"table table "}>
                 <thead>
                     <tr>
                         <th className={"small-width"}>Сотрудник</th>

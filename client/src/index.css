@@ -54,3 +54,14 @@ h1, h2, h3, label {
     margin: auto;
     max-width: 300px;
 }
+
+.workers-table {
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+.workers-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+}

@@ -48,6 +48,7 @@ export const CurrentWorkerProvider = ( {children} ) => {
     }
 
     const createWorker = async (worker) => {
+
         await request(`/api/workers`, 'POST', worker, {
             Authorization: `Bearer ${token}`
         });

@@ -9,6 +9,7 @@ export const CreateWorkerPage = () => {
         <CurrentWorkerProvider>
             <Header title={"Регистрация сотрудника"}/>
             <WorkerBasicInfo create={true}/>
+            <div className={"mt-5"}></div>
         </CurrentWorkerProvider>
     );
 }
